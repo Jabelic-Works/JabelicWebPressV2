@@ -1,0 +1,192 @@
+/* 
+@font-face {
+    font-family: 'Tauri';
+    src: url('../font/tauri/Tauri-Regular.ttf') format("truetype");
+} */
+
+@font-face {
+    font-family: 'SawarabiMincho';
+    transform: rotate(0.03deg); 
+    src: url('../font/SawarabiMincho/SawarabiMincho-Regular.ttf') format("truetype");
+}
+
+/* icon */
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+/* https://developer.mozilla.org/ja/docs/Web/CSS/:root */
+:root{
+    font-family: 'SawarabiMincho';
+    transform: rotate(0.03deg); 
+    color: aliceblue;
+    background-color: rgba(10, 10, 10, 0.800);
+    /* height: 100vh; */
+    margin: 0%;
+}
+
+/** ページ遷移のアニメーション */
+/* .rtl */
+.animation-bg {
+    z-index: 999;
+  }
+  @keyframes PageAnime-rtl {
+    0% {
+      transform-origin: right;
+      transform: scaleX(0);
+    }
+    50% {
+      transform-origin: right;
+      transform: scaleX(1);
+    }
+    50.001% {
+      transform-origin: left;
+    }
+    100% {
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+  }
+  @keyframes PageAnime-ltr {
+    0% {
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+    50% {
+      transform-origin: left;
+      transform: scaleX(1);
+    }
+    50.001% {
+      transform-origin: right;
+    }
+    100% {
+      transform-origin: right;
+      transform: scaleX(0);
+    }
+  }
+
+.transition {
+    position:absolute;
+    /* height:100%; */
+    width:0%;
+    z-index: 999;
+    background:rgba(1, 33, 0, 1);
+    transform: skewX(0deg) translateX(-50px);
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+}
+
+.content {
+    position:relative;
+    z-index:990;
+    /* height:100vh; */
+}
+
+.cta {
+    outline:none;
+    border:none;
+    text-decoration:none;
+    text-transform:uppercase;
+    /* background:rgba(163, 255, 159, 0.1); */
+    box-sizing:border-box;
+    margin-top:20px;
+    padding:10px 40px;
+}
+
+.anim-trans {
+    animation: anim 0.5s ease-in-out;
+}
+
+body{
+  /** font kerning */
+  font-feature-settings:"palt";
+  letter-spacing: 0.01rem;
+  /** 行間  */
+  line-height: 1.5rem;
+}
+a{
+  margin:0;
+  padding:0;
+  vertical-align:baseline;
+  background:transparent;
+  word-break: break-all;
+  margin-top: 1em;
+  color: yellow;
+  transition: 0.5s;
+    /* font-size: 14px;
+      margin-top: 1em;
+      transition: 0.5s;
+      color: white; */
+}
+a:hover {
+  color: #7dff04;
+}
+a:active {
+  color: #04ffbc;
+}
+
+h1,h2,h3,h4,h5{
+  padding-top: 2rem
+}
+
+h1 > a,h2 > a,h3 > a,h4 > a{
+  color: white;
+}
+
+@keyframes anim{
+    0%   { transform: translateX(0); width:100%; z-index:999; box-shadow: 10px 10px 10px #eaeaea; }
+    60%  { z-index:999; \transform:  translateX(-10%);  }
+    100% { }
+}
+
+.animation-bg {
+  z-index: 999;
+}
+@keyframes PageAnime-rtl {
+  0% {
+    transform-origin: right;
+    transform: scaleX(0);
+  }
+  50% {
+    transform-origin: right;
+    transform: scaleX(1);
+  }
+  50.001% {
+    transform-origin: left;
+  }
+  100% {
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+}
+@keyframes PageAnime-ltr {
+  0% {
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  50% {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+  50.001% {
+    transform-origin: right;
+  }
+  100% {
+    transform-origin: right;
+    transform: scaleX(0);
+  }
+}
+
+.transition {
+  position:absolute;
+  /* height:100%; */
+  width:0%;
+  z-index: 999;
+  background:rgba(1, 33, 0, 1);
+  transform: skewX(0deg) translateX(-50px);
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+}
+
+html,body{
+  margin: 0;
+  padding: 0;
+}
