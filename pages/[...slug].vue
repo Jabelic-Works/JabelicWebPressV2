@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  useHead({
-    title: "Jabelic Web Press",
-  });
+useHead({
+  title: "Jabelic Web Press",
+});
 </script>
 
 <template>
@@ -10,12 +10,12 @@
   </div>
 </template>
 
-<style scoped>
-  .container {
-    display: flex;
-    justify-content: center;
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 1%;
-  }
+<style scoped lang="scss">
+.container {
+  display: flex;
+  justify-content: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 1%;
+}
 </style>

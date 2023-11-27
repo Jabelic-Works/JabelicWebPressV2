@@ -32,7 +32,6 @@ const isShowLangSwitcher = computed(
         :path="$route.path"
       />
     </div>
-    <!-- <ContentDoc /> -->
   </main>
 </template>
 
@@ -50,21 +49,6 @@ h1 {
   text-align: end;
   margin-right: 3vw;
   margin-top: 3vw;
-}
-@media screen and (max-width: 800px) {
-  h1 {
-    font-size: 24px;
-    padding-top: 3%;
-  }
-}
-@media screen and (max-width: 600px) {
-  h1 {
-    font-size: 20px;
-    padding-top: 3%;
-  }
-  h3 {
-    font-size: 14px;
-    padding-top: 3%;
-  }
+  margin-bottom: 3vw;
 }
 </style>

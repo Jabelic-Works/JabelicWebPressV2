@@ -50,6 +50,7 @@ h1 {
   text-align: end;
   margin-right: 3vw;
   margin-top: 3vw;
+  margin-bottom: 3vw;
 }
 @media screen and (max-width: 800px) {
   h1 {
