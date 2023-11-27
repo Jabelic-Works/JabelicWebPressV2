@@ -1,22 +1,27 @@
 <script setup lang="ts">
-  import ArticleCard from "~/components/ArticleCard.vue";
-  const { data: articles } = await useAsyncData("ja/articles", () =>
-    queryContent("ja/articles").limit(15).find()
-  );
+import ArticleCard from "~/components/ArticleCard.vue";
+import { useRootElementStore } from "~/store/rootElement";
+const { data: articles } = await useAsyncData("ja/articles", () =>
+  queryContent("ja/articles").limit(15).find()
+);
 
-  useHead({
-    title: "",
-  });
-  console.log(articles);
+useHead({
+  title: "",
+});
+const route = useRoute();
+const rootElementStore = useRootElementStore();
+const isShowLangSwitcher = computed(
+  () => !route.path.includes("article") && rootElementStore.getWidth <= 600
+);
 </script>
 
 <template>
   <main>
     <h1>小さく書いて大きく育てる</h1>
     <div v-for="article in articles" :key="article._path" class="article">
-      <!-- <nuxt-link :to="article._path"
-        >{{ article.title }} {{ article.description }}</nuxt-link
-      > -->
+      <div v-if="isShowLangSwitcher" class="lang-switch">
+        <SelectLang />
+      </div>
       <ArticleCard
         :contents="{
           title: article.title ?? '',
@@ -32,13 +37,13 @@
 </template>
 
 <style scoped>
-  .article {
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-top: 3%;
-  }
-  h1 {
-    margin-left: 3%;
-    margin-right: 3%;
-  }
+.article {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 3%;
+}
+h1 {
+  margin-left: 3%;
+  margin-right: 3%;
+}
 </style>

@@ -1,18 +1,27 @@
 <script setup lang="ts">
-  import ArticleCard from "~/components/ArticleCard.vue";
-  const { data: articles } = await useAsyncData("articles", () =>
-    queryContent("articles").limit(15).find()
-  );
+import ArticleCard from "~/components/ArticleCard.vue";
+import { useRootElementStore } from "~/store/rootElement";
+const { data: articles } = await useAsyncData("articles", () =>
+  queryContent("articles").limit(15).find()
+);
 
-  useHead({
-    title: "",
-  });
-  const router = useRouter();
-  router.replace("/en");
+useHead({
+  title: "",
+});
+const router = useRouter();
+router.replace("/en");
+const route = useRoute();
+const rootElementStore = useRootElementStore();
+const isShowLangSwitcher = computed(
+  () => !route.path.includes("article") && rootElementStore.getWidth <= 600
+);
 </script>
 
 <template>
   <main>
+    <div v-if="isShowLangSwitcher" class="lang-switch">
+      <SelectLang />
+    </div>
     <div v-for="article in articles" :key="article._path" class="article">
       <ArticleCard
         :contents="{
@@ -28,9 +37,9 @@
 </template>
 
 <style scoped>
-  .article {
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-top: 3%;
-  }
+.article {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 3%;
+}
 </style>

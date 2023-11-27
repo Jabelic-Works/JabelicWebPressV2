@@ -6,8 +6,9 @@
     "dev": "nuxt dev --port 3132",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "publish": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler deploy",
-    "devTest": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler dev"
+    "deploy": "vercel deploy --prod",
+    "clf:publish": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler deploy",
+    "clf:devTest": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler dev"
   },
   "devDependencies": {
     "@nuxt/content": "^2.9.0",
