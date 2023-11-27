@@ -3,11 +3,11 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port 3132",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "publish": "NITRO_PRESET=cloudflare pnpm build && npx wrangler publish",
-    "devTest": "NITRO_PRESET=cloudflare pnpm build && npx wrangler dev"
+    "publish": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler deploy",
+    "devTest": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler dev"
   },
   "devDependencies": {
     "@nuxt/content": "^2.9.0",
