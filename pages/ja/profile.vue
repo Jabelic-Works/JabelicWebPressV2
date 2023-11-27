@@ -45,7 +45,14 @@ setTimeout(() => {
     <div class="contents">
       <div class="belongings profile-card">{{ profiles.belongings }}</div>
       <div class="graduate profile-card">{{ profiles.graduate }}</div>
-      <div class="bluesky profile-card">{{ profiles.bluesky }}</div>
+      <NuxtLink
+        class="bluesky profile-card"
+        :to="profiles.bluesky.link"
+        target="_blank"
+        rel="noopener"
+      >
+        {{ profiles.bluesky.title }}</NuxtLink
+      >
       <NuxtLink
         class="twitter profile-card"
         :to="profiles.twitter.link"
@@ -113,6 +120,7 @@ h1 {
   padding: 3%;
 }
 .twitter,
+.bluesky,
 .github,
 .scrapbox {
   display: block;
