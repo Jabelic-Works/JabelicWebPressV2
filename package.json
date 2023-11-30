@@ -6,7 +6,7 @@
     "dev": "nuxt dev --port 3132",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "deploy": "vercel deploy --prod",
+    "deploy": "./deploy.sh",
     "clf:publish": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler deploy",
     "clf:devTest": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler dev"
   },
