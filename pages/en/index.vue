@@ -5,9 +5,6 @@
     queryContent("en/articles").limit(15).find()
   );
   const articles = ref(data.value?.reverse());
-  onMounted(() => {
-    console.log(data, articles);
-  });
 
   useHead({
     title: "",
@@ -22,11 +19,7 @@
 <template>
   <main>
     <h1>Start Small, Grow Big Program</h1>
-    <div
-      v-for="article in articles?.reverse()"
-      :key="article._path"
-      class="article"
-    >
+    <div v-for="article in articles" :key="article._path" class="article">
       <div v-if="isShowLangSwitcher" class="lang-switch">
         <SelectLang />
       </div>

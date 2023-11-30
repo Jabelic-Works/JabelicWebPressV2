@@ -5,9 +5,6 @@
     queryContent("ja/articles").limit(15).find()
   );
   const articles = ref(data.value?.reverse());
-  onMounted(() => {
-    console.log(data, articles);
-  });
 
   useHead({
     title: "",
