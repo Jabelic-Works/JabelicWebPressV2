@@ -9,7 +9,7 @@
     articles.value = data.value?.reverse();
   });
   onBeforeUpdate(() => {
-    return data.value?.reverse();
+    articles.value = data.value?.reverse();
   });
 
   useHead({
