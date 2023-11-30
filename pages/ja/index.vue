@@ -4,11 +4,12 @@
   const { data } = await useAsyncData("ja/articles", () =>
     queryContent("ja/articles").limit(15).find()
   );
-  const articles = computed(() => {
-    if (data.value) return data.value?.reverse();
-  });
+  const articles = ref<any[] | undefined>(data.value?.reverse());
   onBeforeMount(() => {
-    if (data.value) return data.value?.reverse();
+    articles.value = data.value?.reverse();
+  });
+  onBeforeUpdate(() => {
+    return data.value?.reverse();
   });
 
   useHead({
