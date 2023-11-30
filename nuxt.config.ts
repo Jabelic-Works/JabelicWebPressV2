@@ -11,7 +11,7 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {
           name: "google-site-verification",
-          content: "OQd0Lr3Xe8OJczVAKFAVy6DlZaRVd3gRNjnrYVpDuZQ",
+          content: "PqjcnHGVY0iCG5PQuhptEM7RD1m2BAa1aELatIIPceQ",
         },
       ],
       link: [
