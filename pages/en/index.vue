@@ -19,7 +19,11 @@
 <template>
   <main>
     <h1>Start Small, Grow Big Program</h1>
-    <div v-for="article in articles" :key="article._path" class="article">
+    <div
+      v-for="article in data?.reverse()"
+      :key="article._path"
+      class="article"
+    >
       <div v-if="isShowLangSwitcher" class="lang-switch">
         <SelectLang />
       </div>
