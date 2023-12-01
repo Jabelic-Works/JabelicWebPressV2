@@ -25,6 +25,9 @@
 <template>
   <main>
     <h1>小さく書いて大きく育てる</h1>
+    <div v-if="isShowLangSwitcher" class="lang-switch">
+      <SelectLang />
+    </div>
     <div v-for="article in articles" :key="article._path" class="article">
       <ArticleCard
         :contents="{
@@ -36,7 +39,6 @@
         :path="$route.path"
       />
     </div>
-    <!-- <ContentDoc /> -->
   </main>
 </template>
 
@@ -50,12 +52,7 @@
     margin-left: 3%;
     margin-right: 3%;
   }
-  .lang-switch {
-    text-align: end;
-    margin-right: 3vw;
-    margin-top: 3vw;
-    margin-bottom: 3vw;
-  }
+
   @media screen and (max-width: 800px) {
     h1 {
       font-size: 24px;
@@ -70,6 +67,21 @@
     h3 {
       font-size: 14px;
       padding-top: 3%;
+    }
+  }
+  .lang-switch {
+    text-align: end;
+    margin-right: 3vw;
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+    display: none;
+  }
+  @media screen and (max-width: 600px) {
+    .lang-switch {
+      margin-right: 3%;
+      margin-top: 3%;
+      margin-bottom: 3%;
+      display: block;
     }
   }
 </style>
