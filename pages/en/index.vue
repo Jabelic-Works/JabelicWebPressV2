@@ -26,6 +26,9 @@
 <template>
   <main>
     <h1>Start Small, Grow Big Program</h1>
+    <div v-if="isShowLangSwitcher" class="lang-switch">
+      <SelectLang />
+    </div>
     <div v-for="article in articles" :key="article._path" class="article">
       <ArticleCard
         :contents="{
@@ -55,5 +58,14 @@
     margin-right: 3vw;
     margin-top: 3vw;
     margin-bottom: 3vw;
+    display: none;
+  }
+  @media screen and (max-width: 600px) {
+    .lang-switch {
+      margin-right: 3%;
+      margin-top: 3%;
+      margin-bottom: 3%;
+      display: block;
+    }
   }
 </style>
