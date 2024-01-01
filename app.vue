@@ -7,7 +7,6 @@
   const { height: elHeight, width: elWidth } = useElementSize(el);
   const store = useRootElementStore();
   watch(elHeight, (arg) => {
-    console.log(arg);
     store.setHeight(arg);
   });
   watch(elWidth, (arg) => {

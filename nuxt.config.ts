@@ -1,7 +1,26 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      baseUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    },
+  },
   devtools: { enabled: true },
-  modules: ["@pinia/nuxt", "@nuxt/content", "@vueuse/nuxt"],
+  modules: [
+    "@pinia/nuxt",
+    "@nuxt/content",
+    "@vueuse/nuxt",
+    "nuxt-simple-sitemap",
+  ],
+  content: {
+    documentDriven: true,
+  },
+  sitemap: {
+    enabled: true,
+  },
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  },
   css: ["~/assets/style/index.css"],
   app: {
     head: {

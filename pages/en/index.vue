@@ -4,15 +4,15 @@
   const { data } = await useAsyncData("en/articles", () =>
     queryContent("en/articles").limit(15).find()
   );
-
-  const articles = ref<any[] | undefined>(data.value?.reverse());
-  onBeforeMount(() => {
-    articles.value = data.value?.reverse();
+  type ParsedContents = typeof data.value;
+  const articles = ref<ParsedContents | undefined>(
+    data.value?.sort((a, b) => (b.sitemap.lastmod > a.sitemap.lastmod ? 1 : -1))
+  );
+  onMounted(() => {
+    articles.value = data.value?.sort((a, b) =>
+      b.sitemap.lastmod > a.sitemap.lastmod ? 1 : -1
+    );
   });
-  onBeforeUpdate(() => {
-    articles.value = data.value?.reverse();
-  });
-
   useHead({
     title: "",
   });
@@ -44,6 +44,12 @@
 </template>
 
 <style scoped>
+  h1 {
+    border-bottom: none !important;
+  }
+  h2 > a {
+    border-bottom: none !important;
+  }
   .article {
     margin-left: 3%;
     margin-right: 3%;

@@ -99,7 +99,7 @@
 body {
   /** font kerning */
   font-feature-settings: "palt";
-  letter-spacing: 0.01rem;
+  letter-spacing: 0.1rem;
   /** 行間  */
   line-height: 1.5rem;
 }
@@ -132,21 +132,37 @@ h5 {
   padding-top: 2rem;
 }
 
-h1 > a,
+@media screen and (max-width: 600px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    padding-top: 1rem;
+  }
+}
+
+h1{
+  border-bottom: double 6px white;
+}
+h2 > a{
+  border-bottom: double 6px white;
+}
 h2 > a,
 h3 > a,
 h4 > a {
   color: white;
 }
+
 @media screen and (max-width: 800px) {
   h1 {
-    font-size: 24px;
+    font-size: 30px;
     padding-top: 3%;
   }
 }
 @media screen and (max-width: 600px) {
   h1 {
-    font-size: 20px;
+    font-size: 24px;
     padding-top: 3%;
   }
   h2 {
@@ -167,11 +183,11 @@ h4 > a {
 }
 @media screen and (max-width: 480px) {
   h1 {
-    font-size: 18px;
+    font-size: 20px;
     padding-top: 3%;
   }
   h2 {
-    font-size: 14px;
+    font-size: 16px;
     padding-top: 3%;
   }
   h3 {
