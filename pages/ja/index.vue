@@ -5,12 +5,10 @@
     queryContent("ja/articles").find()
   );
   type ParsedContents = typeof data.value;
-  const articles = ref<ParsedContents | undefined>(
-    data.value?.sort((a, b) => (b.sitemap.lastmod > a.sitemap.lastmod ? 1 : -1))
-  );
+  const articles = ref<ParsedContents | undefined>();
   onMounted(() => {
     articles.value = data.value?.sort((a, b) =>
-      b.sitemap.lastmod > a.sitemap.lastmod ? 1 : -1
+    (new Date(b.sitemap.lastmod) > new Date(a.sitemap.lastmod) ? 1 : -1)
     );
   });
 
