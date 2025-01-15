@@ -6,12 +6,19 @@ useHead({
 });
 
 const route = useRoute();
-const content = await queryContent(route.fullPath).findOne();
+const { data: article } = await useAsyncData("article", () =>
+  queryContent("/articles/your-article").findOne()
+);
 
 useHead({
   meta: [
-    { property: "og:title", content: `${content.title} | Jabelic Web Press` },
+    {
+      property: "og:title",
+      content: `${article.value?.title} | Jabelic Web Press`,
+    },
     { property: "og:type", content: "article" },
+    { property: "og:image", content: article.value?.image || "/image/ogp.jpg" },
+    { name: "description", content: article.value?.description },
   ],
 });
 </script>

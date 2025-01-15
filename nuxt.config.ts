@@ -34,7 +34,7 @@ export default defineNuxtConfig({
         },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "Jabelic Web Press" },
-        { property: "og:image", content: "image/ogp.png" },
+        { property: "og:image", content: "image/ogp.jpg" },
       ],
       link: [
         { rel: "icon", type: "image/png", href: "/icon-16x16.png" }, // これを追記する
