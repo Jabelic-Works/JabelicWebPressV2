@@ -20,7 +20,8 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "nuxt-simple-sitemap": "^4.1.7",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "shiki": "^3.2.2"
   },
   "volta": {
     "node": "20.10.0"

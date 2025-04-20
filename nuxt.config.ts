@@ -14,6 +14,10 @@ export default defineNuxtConfig({
   ],
   content: {
     documentDriven: true,
+    highlight: {
+      theme: "vitesse-dark", // 好みのテーマを選択
+      preload: ["typescript", "javascript", "vue", "json", "markdown"],
+    },
   },
   sitemap: {
     enabled: true,
