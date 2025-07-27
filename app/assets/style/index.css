@@ -24,6 +24,74 @@
   margin: 0%;
 }
 
+/* Nuxt Content レスポンシブ対応 */
+/* ContentDocで生成される要素全般 */
+[class*="content:"] {
+  max-width: 100% !important;
+  overflow-x: auto;
+  word-wrap: break-word;
+  box-sizing: border-box;
+}
+
+/* コードブロック */
+pre,
+code {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+  box-sizing: border-box !important;
+}
+
+/* インラインコード */
+code:not(pre code) {
+  word-break: break-all !important;
+  overflow-wrap: break-word !important;
+}
+
+/* テーブル */
+table {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  display: block !important;
+  white-space: nowrap !important;
+}
+
+/* モバイル専用のコンテンツスタイル */
+@media screen and (max-width: 600px) {
+  [class*="content:"] {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  pre,
+  code {
+    font-size: 10px !important;
+    padding: 8px !important;
+    margin: 4px 0 !important;
+  }
+
+  /* 非常に長い文字列も強制的に改行 */
+  * {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  [class*="content:"] {
+    font-size: 10px !important;
+  }
+
+  pre,
+  code {
+    font-size: 9px !important;
+    padding: 6px !important;
+  }
+}
+
 /** ページ遷移のアニメーション */
 /* .rtl */
 .animation-bg {
@@ -142,10 +210,10 @@ h5 {
   }
 }
 
-h1{
+h1 {
   border-bottom: double 6px white;
 }
-h2 > a{
+h2 > a {
   border-bottom: double 6px white;
 }
 h2 > a,
