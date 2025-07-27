@@ -33,8 +33,35 @@ useHead({
 .container {
   display: flex;
   justify-content: center;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
   padding-top: 1%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* タブレット以下のサイズ */
+@media screen and (max-width: 800px) {
+  .container {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+}
+
+/* モバイルサイズ */
+@media screen and (max-width: 600px) {
+  .container {
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2%;
+  }
+}
+
+/* 小さなモバイルサイズ */
+@media screen and (max-width: 480px) {
+  .container {
+    padding-left: 1%;
+    padding-right: 1%;
+  }
 }
 </style>

@@ -5,23 +5,23 @@
     "dev": "nuxt dev --port 3132 --host",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "nuxt preview --port 3132",
     "deploy": "./deploy.sh",
     "clf:publish": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler deploy",
     "clf:devTest": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler dev"
   },
   "devDependencies": {
-    "@nuxt/content": "^2.9.0",
-    "@vueuse/core": "^10.6.1",
-    "@vueuse/nuxt": "^10.6.1",
-    "nuxt": "^3.8.2",
-    "sass": "^1.69.5"
+    "@nuxt/content": "^2.13.4",
+    "@vueuse/core": "^10.11.1",
+    "@vueuse/nuxt": "^10.11.1",
+    "nuxt": "^4.0.1",
+    "sass": "^1.89.2"
   },
   "dependencies": {
+    "@nuxtjs/sitemap": "^7.4.3",
     "@pinia/nuxt": "^0.5.1",
-    "nuxt-simple-sitemap": "^4.1.7",
     "pinia": "^2.1.7",
-    "shiki": "^3.2.2"
+    "shiki": "3.8.1"
   },
   "volta": {
     "node": "20.10.0"

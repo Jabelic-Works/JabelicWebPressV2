@@ -1,17 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  future: {
+    compatibilityVersion: 4,
+  },
+  experimental: {
+    // oxc-parser のネイティブバインディング問題を回避
+    // compileTemplate: false,
+  },
   runtimeConfig: {
     public: {
-      baseUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      baseUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3132",
     },
   },
   devtools: { enabled: true },
-  modules: [
-    "@pinia/nuxt",
-    "@nuxt/content",
-    "@vueuse/nuxt",
-    "nuxt-simple-sitemap",
-  ],
+  modules: ["@pinia/nuxt", "@nuxt/content", "@vueuse/nuxt", "@nuxtjs/sitemap"],
   content: {
     documentDriven: true,
     highlight: {
@@ -23,7 +25,7 @@ export default defineNuxtConfig({
     enabled: true,
   },
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    url: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3132",
   },
   css: ["~/assets/style/index.css"],
   app: {
