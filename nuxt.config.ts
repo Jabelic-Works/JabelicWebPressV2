@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      baseUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3132",
     },
   },
   devtools: { enabled: true },
@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     enabled: true,
   },
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    url: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3132",
   },
   css: ["~/assets/style/index.css"],
   app: {

@@ -5,7 +5,7 @@
     "dev": "nuxt dev --port 3132 --host",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "nuxt preview --port 3132",
     "deploy": "./deploy.sh",
     "clf:publish": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler deploy",
     "clf:devTest": "NITRO_PRESET=cloudflare pnpm build && pnpm dlx wrangler dev"
@@ -21,7 +21,7 @@
     "@nuxtjs/sitemap": "^7.4.3",
     "@pinia/nuxt": "^0.5.1",
     "pinia": "^2.1.7",
-    "shiki": "0.14.7"
+    "shiki": "3.8.1"
   },
   "volta": {
     "node": "20.10.0"
