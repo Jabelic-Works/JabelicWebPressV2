@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type Locales, locales } from "~/shared/i18n/locale";
+import { type Locales, locales } from "~~/shared/i18n/locale";
 const route = useRoute();
 const locale = computed<Locales>(() =>
   route.path.includes("ja") ? locales.ja : locales.en

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { useRootElementStore } from "~~/store/rootElement";
 import ArticleCard from "~/components/ArticleCard.vue";
-import { useRootElementStore } from "~/store/rootElement";
-const { data } = await useAsyncData("ja/articles", () =>
-  queryContent("ja/articles").find()
+const { data } = await useAsyncData("en/articles", () =>
+  queryContent("en/articles").limit(15).find()
 );
 type ParsedContents = typeof data.value;
 const articles = ref<ParsedContents | undefined>();
@@ -11,11 +11,9 @@ onMounted(() => {
     new Date(b.sitemap.lastmod) > new Date(a.sitemap.lastmod) ? 1 : -1
   );
 });
-
 useHead({
   title: "",
 });
-
 const route = useRoute();
 const rootElementStore = useRootElementStore();
 const isShowLangSwitcher = computed(
@@ -25,7 +23,7 @@ const isShowLangSwitcher = computed(
 
 <template>
   <main>
-    <h1>小さく書いて大きく育てる</h1>
+    <h1>From little acorns, mighty oaks grow</h1>
     <div v-if="isShowLangSwitcher" class="lang-switch">
       <SelectLang />
     </div>
@@ -59,23 +57,6 @@ h2 > a {
 h1 {
   margin-left: 3%;
   margin-right: 3%;
-}
-
-@media screen and (max-width: 800px) {
-  h1 {
-    font-size: 24px;
-    padding-top: 3%;
-  }
-}
-@media screen and (max-width: 600px) {
-  h1 {
-    font-size: 20px;
-    padding-top: 3%;
-  }
-  h3 {
-    font-size: 14px;
-    padding-top: 3%;
-  }
 }
 .lang-switch {
   text-align: end;
