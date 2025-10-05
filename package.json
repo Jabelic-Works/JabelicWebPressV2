@@ -20,10 +20,9 @@
   "dependencies": {
     "@nuxtjs/sitemap": "^7.4.3",
     "@pinia/nuxt": "^0.5.1",
-    "pinia": "^2.1.7",
-    "shiki": "3.8.1"
+    "pinia": "^2.1.7"
   },
-  "volta": {
-    "node": "20.10.0"
+  "engines": {
+    "node": "24"
   }
 }
