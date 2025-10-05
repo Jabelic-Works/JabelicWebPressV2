@@ -4,7 +4,7 @@ sitemap:
   lastmod: 2025-10-03
   changefreq: monthly
   priority: 0.8
-title: I Created a Library Called i18n-at
+title: A Library 'i18n-at'
 description: "Development background and design philosophy of i18n-at, an i18n library bringing co-location-first and type-safety to Next.js App Router"
 tags:
   [
