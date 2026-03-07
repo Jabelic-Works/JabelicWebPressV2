@@ -4,6 +4,7 @@ sitemap:
   lastmod: 2025-05-15
   changefreq: monthly
   priority: 0.8
+publishedAt: 2025-05-15
 title: Nuxt UIのダークモード実装
 description: Nuxt UIフレームワークにおけるダークモード実装の詳細と設定方法
 tags: [{ name: "blog" }, { name: 'nuxt' }, { name: 'tailwind' }]

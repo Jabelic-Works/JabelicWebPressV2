@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import ArticleCard from "~/components/ArticleCard.vue";
 import { useRootElementStore } from "~~/store/rootElement";
-const { data } = await useAsyncData("ja/articles", () =>
-  queryContent("ja/articles").find()
-);
-type ParsedContents = typeof data.value;
-const articles = ref<ParsedContents | undefined>();
-onMounted(() => {
-  articles.value = data.value?.sort((a, b) =>
-    new Date(b.sitemap.lastmod) > new Date(a.sitemap.lastmod) ? 1 : -1
-  );
-});
+const { articles } = await useArticlesByLocale("ja");
 
 useHead({
   title: "",
@@ -29,13 +20,13 @@ const isShowLangSwitcher = computed(
     <div v-if="isShowLangSwitcher" class="lang-switch">
       <SelectLang />
     </div>
-    <div v-for="article in articles" :key="article._path" class="article">
+    <div v-for="article in articles" :key="article.path" class="article">
       <ArticleCard
         :contents="{
           title: article.title ?? '',
           description: article.description,
           tags: article.tags,
-          to: `${article._path}`,
+          to: article.path,
         }"
         :path="$route.path"
       />

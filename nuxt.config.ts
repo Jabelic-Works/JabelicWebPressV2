@@ -15,10 +15,16 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@pinia/nuxt", "@nuxt/content", "@vueuse/nuxt", "@nuxtjs/sitemap"],
   content: {
-    documentDriven: true,
-    highlight: {
-      theme: "vitesse-dark", // 好みのテーマを選択
-      preload: ["typescript", "javascript", "vue", "json", "markdown"],
+    build: {
+      markdown: {
+        highlight: {
+          theme: "vitesse-dark",
+          langs: ["typescript", "javascript", "vue", "json", "markdown"],
+        },
+      },
+    },
+    experimental: {
+      sqliteConnector: "native",
     },
   },
   sitemap: {

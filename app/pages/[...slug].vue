@@ -1,31 +1,38 @@
 <script setup lang="ts">
 import { useRoute } from "#app";
-import { queryContent } from "#imports";
-useHead({
-  title: "Jabelic Web Press",
-});
+import { getArticleByPathKey } from "~~/shared/content/articles";
 
 const route = useRoute();
-const { data: article } = await useAsyncData("article", () =>
-  queryContent("/articles/your-article").findOne()
+const articlePath = computed(() => route.path);
+const articleKey = computed(() => getArticleByPathKey(articlePath.value));
+const { data: article } = await useAsyncData(
+  articleKey,
+  () => queryCollection("articles").path(articlePath.value).first(),
+  {
+    watch: [articlePath],
+  }
 );
 
-useHead({
-  meta: [
-    {
-      property: "og:title",
-      content: `${article.value?.title} | Jabelic Web Press`,
-    },
-    { property: "og:type", content: "article" },
-    { property: "og:image", content: article.value?.image || "/image/ogp.jpg" },
-    { name: "description", content: article.value?.description },
-  ],
+if (!article.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Article not found",
+  });
+}
+
+useSeoMeta({
+  title: () => `${article.value?.title} | Jabelic Web Press`,
+  description: () => article.value?.description ?? "Jabelic Web Press",
+  ogTitle: () => `${article.value?.title} | Jabelic Web Press`,
+  ogType: "article",
+  ogImage: () => article.value?.image || "/image/ogp.jpg",
+  ogDescription: () => article.value?.description ?? "Jabelic Web Press",
 });
 </script>
 
 <template>
   <div class="container">
-    <ContentDoc />
+    <ContentRenderer v-if="article" :value="article" />
   </div>
 </template>
 
