@@ -13,7 +13,13 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
-  modules: ["@pinia/nuxt", "@nuxt/content", "@vueuse/nuxt", "@nuxtjs/sitemap"],
+  modules: [
+    "@pinia/nuxt",
+    "@nuxt/content",
+    "@vueuse/nuxt",
+    "@nuxtjs/sitemap",
+    "@nuxt/ui",
+  ],
   content: {
     build: {
       markdown: {
@@ -34,6 +40,12 @@ export default defineNuxtConfig({
     url: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3132",
   },
   css: ["~/assets/style/index.css"],
+  ui: {
+    // フォントは既存のローカル font-face と CSS トークンで管理する
+    fonts: false,
+    // 現状は既存サイトのダーク基調を維持し、色モード切り替えは後続で扱う
+    colorMode: false,
+  },
   app: {
     head: {
       title: "Jabelic Web Press",

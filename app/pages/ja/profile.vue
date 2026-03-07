@@ -30,9 +30,6 @@ const profiles = {
     link: "https://scrapbox.io/jabelic-public",
   },
 };
-const appConfig = useAppConfig();
-const mainColor = ref(appConfig.theme.colors.main);
-
 const trans = ref(true);
 setTimeout(() => {
   trans.value = false;
@@ -91,27 +88,27 @@ h1 {
 }
 
 .profile-card {
-  background-color: black;
+  background-color: var(--jwp-color-surface);
   padding: 1%;
   margin: 1%;
   border-radius: 0.5rem;
   transition: 0.5s;
-  color: white;
+  color: var(--jwp-color-text);
 }
 .profile-card:active {
-  color: rgba(30, 255, 0, 0.9);
+  color: var(--jwp-color-link-active);
 }
 .profile-card:hover,
 .profile-card:active {
   box-shadow: 1px 1px 1px 0px rgba(255, 255, 255, 0.5);
-  border: solid 0.1rem v-bind(mainColor);
+  border: solid 0.1rem var(--jwp-color-border-strong);
   border-radius: 0.5rem;
 }
 .profile-card:hover {
-  color: yellow;
+  color: var(--jwp-color-link);
 }
 .profile-card:active {
-  color: rgba(30, 255, 0, 0.9);
+  color: var(--jwp-color-link-active);
 }
 .contents {
   padding-top: 3%;

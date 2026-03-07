@@ -1,8 +1,41 @@
-/* 
-@font-face {
-    font-family: 'Tauri';
-    src: url('../font/tauri/Tauri-Regular.ttf') format("truetype");
-} */
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@source "../../../content";
+
+/*
+ * Shared theme tokens for Nuxt UI and the remaining custom components.
+ * app/app.config.ts only maps semantic aliases like primary/secondary.
+ */
+@theme static {
+  --font-sans: "SawarabiMincho", serif;
+  --font-serif: "SawarabiMincho", serif;
+
+  --color-brand-50: #effcf5;
+  --color-brand-100: #d7f6e4;
+  --color-brand-200: #afeccc;
+  --color-brand-300: #7dddb0;
+  --color-brand-400: #46c78d;
+  --color-brand-500: #04c000;
+  --color-brand-600: #14a14c;
+  --color-brand-700: #1f7a4a;
+  --color-brand-800: #245941;
+  --color-brand-900: #1a3f30;
+  --color-brand-950: #0b1f17;
+
+  --color-accent-50: #fdf3ff;
+  --color-accent-100: #f9e3fb;
+  --color-accent-200: #f3c4f5;
+  --color-accent-300: #ea95ee;
+  --color-accent-400: #dd5de1;
+  --color-accent-500: #c532c7;
+  --color-accent-600: #9f249f;
+  --color-accent-700: #7b1c7b;
+  --color-accent-800: #5a1758;
+  --color-accent-900: #3c103a;
+  --color-accent-950: #240822;
+}
 
 @font-face {
   font-family: "SawarabiMincho";
@@ -11,21 +44,27 @@
     format("truetype");
 }
 
-/* icon */
-@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
-
-/* https://developer.mozilla.org/ja/docs/Web/CSS/:root */
+/* アプリ全体に残すグローバル基礎スタイル */
 :root {
+  --jwp-color-background: rgba(10, 10, 10, 0.8);
+  --jwp-color-surface: #000;
+  --jwp-color-text: aliceblue;
+  --jwp-color-text-muted: #777;
+  --jwp-color-link: yellow;
+  --jwp-color-link-hover: #7dff04;
+  --jwp-color-link-active: #04ffbc;
+  --jwp-color-border-strong: var(--color-primary-700);
+  --jwp-color-header: var(--color-primary-800);
+  --jwp-color-header-glow: #7fda2488;
+
   font-family: "SawarabiMincho";
   transform: rotate(0.03deg);
-  color: aliceblue;
-  background-color: rgba(10, 10, 10, 0.8);
-  /* height: 100vh; */
-  margin: 0%;
+  color: var(--jwp-color-text);
+  background-color: var(--jwp-color-background);
+  margin: 0;
 }
 
-/* Nuxt Content レスポンシブ対応 */
-/* ContentDocで生成される要素全般 */
+/* Nuxt Content を使う間は global に残すレイアウト補正 */
 [class*="content:"] {
   max-width: 100% !important;
   overflow-x: auto;
@@ -35,18 +74,23 @@
 
 /* コードブロック */
 pre,
-code {
-  max-width: 100% !important;
-  overflow-x: auto !important;
-  white-space: pre-wrap !important;
-  word-break: break-all !important;
-  box-sizing: border-box !important;
+pre code {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  box-sizing: border-box;
 }
 
 /* インラインコード */
 code:not(pre code) {
-  word-break: break-all !important;
-  overflow-wrap: break-word !important;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  overflow: visible;
+  margin: 0;
+  vertical-align: baseline;
+  line-height: inherit;
 }
 
 /* テーブル */
@@ -66,7 +110,7 @@ table {
   }
 
   pre,
-  code {
+  pre code {
     font-size: 10px !important;
     padding: 8px !important;
     margin: 4px 0 !important;
@@ -86,14 +130,13 @@ table {
   }
 
   pre,
-  code {
+  pre code {
     font-size: 9px !important;
     padding: 6px !important;
   }
 }
 
-/** ページ遷移のアニメーション */
-/* .rtl */
+/* 個別コンポーネント置換まで残す既存アニメーション群 */
 .animation-bg {
   z-index: 999;
 }
@@ -137,7 +180,7 @@ table {
   /* height:100%; */
   width: 0%;
   z-index: 999;
-  background: rgba(1, 33, 0, 1);
+  background: var(--jwp-color-header);
   transform: skewX(0deg) translateX(-50px);
   transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
@@ -146,7 +189,6 @@ table {
 .content {
   position: relative;
   z-index: 990;
-  /* height:100vh; */
 }
 
 .cta {
@@ -154,7 +196,6 @@ table {
   border: none;
   text-decoration: none;
   text-transform: uppercase;
-  /* background:rgba(163, 255, 159, 0.1); */
   box-sizing: border-box;
   margin-top: 20px;
   padding: 10px 40px;
@@ -165,11 +206,13 @@ table {
 }
 
 body {
+  background-color: var(--jwp-color-background);
+  color: var(--jwp-color-text);
   /** font kerning */
   font-feature-settings: "palt";
   letter-spacing: 0.1rem;
   /** 行間  */
-  line-height: 1.5rem;
+  line-height: .8rem;
 }
 a {
   margin: 0;
@@ -178,7 +221,7 @@ a {
   background: transparent;
   word-break: break-all;
   margin-top: 1em;
-  color: yellow;
+  color: var(--jwp-color-link);
   transition: 0.5s;
   /* font-size: 14px;
       margin-top: 1em;
@@ -186,10 +229,10 @@ a {
       color: white; */
 }
 a:hover {
-  color: #7dff04;
+  color: var(--jwp-color-link-hover);
 }
 a:active {
-  color: #04ffbc;
+  color: var(--jwp-color-link-active);
 }
 
 h1,
@@ -211,15 +254,15 @@ h5 {
 }
 
 h1 {
-  border-bottom: double 6px white;
+  border-bottom: double 6px var(--jwp-color-text);
 }
 h2 > a {
-  border-bottom: double 6px white;
+  border-bottom: double 6px var(--jwp-color-text);
 }
 h2 > a,
 h3 > a,
 h4 > a {
-  color: white;
+  color: var(--jwp-color-text);
 }
 
 @media screen and (max-width: 800px) {
@@ -280,7 +323,7 @@ h4 > a {
   }
   60% {
     z-index: 999;
-    \transform: translateX(-10%);
+    transform: translateX(-10%);
   }
   100% {
   }
@@ -329,7 +372,7 @@ h4 > a {
   /* height:100%; */
   width: 0%;
   z-index: 999;
-  background: rgba(1, 33, 0, 1);
+  background: var(--jwp-color-header);
   transform: skewX(0deg) translateX(-50px);
   transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
@@ -339,4 +382,6 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--jwp-color-background);
+  color: var(--jwp-color-text);
 }
