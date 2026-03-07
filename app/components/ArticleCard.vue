@@ -24,9 +24,6 @@
       // id: "",
     }),
   });
-  const appConfig = useAppConfig();
-  const mainDarkColor = ref(appConfig.theme.colors.main);
-  const mainColor = ref(appConfig.theme.colors.main);
 </script>
 
 <template>
@@ -53,7 +50,7 @@
     border-bottom: none !important;
   }
   .card {
-    background: black;
+    background: var(--jwp-color-surface);
     border: 0.1rem solid;
     border-color: rgba(8, 102, 0, 0);
     border-radius: 5px;
@@ -62,9 +59,9 @@
   }
   .card:hover,
   .card:active {
-    border: solid 0.1rem v-bind(mainColor);
-    border-color: v-bind(mainDarkColor);
-    color: yellow;
+    border: solid 0.1rem var(--jwp-color-border-strong);
+    border-color: var(--jwp-color-border-strong);
+    color: var(--jwp-color-link);
   }
   .card-content {
     padding: 2%;
@@ -75,16 +72,16 @@
     padding-top: 1rem;
     margin-bottom: 20px;
     text-align: start;
-    color: white;
+    color: var(--jwp-color-text);
   }
   .card-title:hover {
-    color: yellow;
+    color: var(--jwp-color-link);
   }
   .card-title:active {
-    color: rgba(30, 255, 0, 0.9);
+    color: var(--jwp-color-link-active);
   }
   .card-text {
-    color: #777;
+    color: var(--jwp-color-text-muted);
     font-size: 14px;
     line-height: 1.5;
   }
@@ -102,14 +99,12 @@
   }
   .card-link a {
     text-decoration: none;
-    color: #0bd;
-    color: rgba(30, 255, 0, 0.9);
+    color: var(--jwp-color-link-active);
     margin: 0 10px;
     transition: 0.5s;
   }
   .card-link a:hover {
-    color: #0090aa;
-    color: rgba(30, 255, 0, 0.9);
+    color: var(--jwp-color-link);
   }
   @media screen and (max-width: 600px) {
     .card-title {
@@ -117,10 +112,10 @@
       margin-top: 10px;
       margin-bottom: 20px;
       text-align: start;
-      color: white;
+      color: var(--jwp-color-text);
     }
     .card-title:active {
-      color: rgba(30, 255, 0, 0.9);
+      color: var(--jwp-color-link-active);
     }
   }
 </style>

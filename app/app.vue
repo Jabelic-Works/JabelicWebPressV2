@@ -14,14 +14,18 @@ watch(elWidth, (arg) => {
 });
 </script>
 <template>
-  <div ref="el">
-    <Html lang="ja">
-      <Head>
-        <Title>{{ APP_NAME }}</Title>
-        <Meta name="description" content="Jabelic Web Press" />
-      </Head>
-      <Header />
-      <NuxtPage />
-    </Html>
-  </div>
+  <Html lang="ja" class="dark">
+    <Head>
+      <Title>{{ APP_NAME }}</Title>
+      <Meta name="description" content="Jabelic Web Press" />
+    </Head>
+    <Body>
+      <UApp>
+        <div ref="el">
+          <Header />
+          <NuxtPage />
+        </div>
+      </UApp>
+    </Body>
+  </Html>
 </template>

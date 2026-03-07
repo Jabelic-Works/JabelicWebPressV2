@@ -44,10 +44,6 @@ const contents = computed<Contents>(() =>
       ]
 );
 
-/** カラー */
-const appConfig = useAppConfig();
-const mainDarkColor = ref(appConfig.theme.colors.main);
-
 /** i18n */
 const route = useRoute();
 const isShowLangSwitcher = computed(
@@ -89,8 +85,11 @@ const backTo = () => router.push(route.path.includes("ja") ? "/ja" : "/");
   align-items: center;
   padding: 0 2rem;
   height: 60px;
-  background-color: v-bind(mainDarkColor);
-  background: linear-gradient(#245941 90%, #7fda2488);
+  background-color: var(--jwp-color-header);
+  background: linear-gradient(
+    var(--jwp-color-header) 90%,
+    var(--jwp-color-header-glow)
+  );
 }
 .left {
   display: flex;
@@ -98,7 +97,7 @@ const backTo = () => router.push(route.path.includes("ja") ? "/ja" : "/");
 }
 .header-title {
   font-size: 18px;
-  color: aliceblue;
+  color: var(--jwp-color-text);
   margin-right: 1rem;
   transition: color 0.3s;
 }
@@ -106,7 +105,7 @@ const backTo = () => router.push(route.path.includes("ja") ? "/ja" : "/");
   text-decoration: underline;
 }
 .header-title:active {
-  color: rgba(30, 255, 0, 0.9);
+  color: var(--jwp-color-link-active);
 }
 .lang-switch {
   margin-left: 1rem;
@@ -119,14 +118,14 @@ const backTo = () => router.push(route.path.includes("ja") ? "/ja" : "/");
 }
 .header-content {
   font-size: 14px;
-  color: aliceblue;
+  color: var(--jwp-color-text);
   transition: color 0.3s;
 }
 .header-content:hover {
   text-decoration: underline;
 }
 .header-content:active {
-  color: rgba(30, 255, 0, 0.9);
+  color: var(--jwp-color-link-active);
 }
 
 .set-item-center {
@@ -216,8 +215,11 @@ const backTo = () => router.push(route.path.includes("ja") ? "/ja" : "/");
     /* grid-template-columns: repeat(12, 1fr);
       grid-template-rows: v-bind(mobileHeaderHeight) 1fr; */
     height: v-bind(mobileHeaderHeight);
-    background-color: v-bind(mainDarkColor);
-    background: linear-gradient(#245941 100%, #245941) !important;
+    background-color: var(--jwp-color-header);
+    background: linear-gradient(
+      var(--jwp-color-header) 100%,
+      var(--jwp-color-header)
+    ) !important;
   }
   .left {
     height: v-bind(mobileHeaderHeight);
@@ -250,7 +252,7 @@ const backTo = () => router.push(route.path.includes("ja") ? "/ja" : "/");
     height: v-bind(mobileHeaderHeight);
     /* grid-template-rows: v-bind(mobileHeaderHeight) 1fr; */
     text-decoration: none;
-    color: aliceblue;
+    color: var(--jwp-color-text);
     transition: 0.5s;
     align-items: center;
   }

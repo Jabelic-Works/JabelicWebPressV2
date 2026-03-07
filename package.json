@@ -18,9 +18,11 @@
     "sass": "^1.89.2"
   },
   "dependencies": {
+    "@nuxt/ui": "^4.5.1",
     "@nuxtjs/sitemap": "^7.4.3",
     "@pinia/nuxt": "^0.5.1",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "tailwindcss": "^4.2.1"
   },
   "engines": {
     "node": "^24.0.0"

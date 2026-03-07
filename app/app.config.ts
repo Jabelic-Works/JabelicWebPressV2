@@ -1,11 +1,12 @@
 export default defineAppConfig({
   title: "JabelicWebPress",
-  theme: {
-    dark: true,
+  ui: {
+    // セマンティックカラーの割り当てだけを担当し、
+    // 実際のパレット定義は app/assets/style/index.css に集約する
     colors: {
-      main: "#245941",
-      mainAccent: "#04C000",
-      accent: "#C532C7",
+      primary: "brand",
+      secondary: "accent",
+      neutral: "slate",
     },
   },
 });
