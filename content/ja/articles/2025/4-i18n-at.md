@@ -4,6 +4,7 @@ sitemap:
   lastmod: 2025-10-03
   changefreq: monthly
   priority: 0.8
+publishedAt: 2025-10-03
 title: i18n-atというライブラリを書いた
 description: "Next.js App Routerにコロケーション・ファーストと型安全性をもたらすi18nライブラリの開発背景と設計思想"
 tags:

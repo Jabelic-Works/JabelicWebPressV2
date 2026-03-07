@@ -14,6 +14,3 @@ export const getArticlesByLocaleKey = (locale: ArticleLocale) =>
 
 export const getArticlePathLike = (locale: ArticleLocale) =>
   `${articlePathPrefixes[locale]}%`;
-
-export const getArticleLastModifiedTime = (lastmod?: string) =>
-  lastmod ? new Date(lastmod).getTime() : 0;
