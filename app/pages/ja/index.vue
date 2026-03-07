@@ -2,15 +2,19 @@
 import ArticleCard from "~/components/ArticleCard.vue";
 import { useRootElementStore } from "~~/store/rootElement";
 const { data } = await useAsyncData("ja/articles", () =>
-  queryContent("ja/articles").find()
+  queryCollection("articles").where("path", "LIKE", "/ja/articles/%").all()
 );
-type ParsedContents = typeof data.value;
-const articles = ref<ParsedContents | undefined>();
-onMounted(() => {
-  articles.value = data.value?.sort((a, b) =>
-    new Date(b.sitemap.lastmod) > new Date(a.sitemap.lastmod) ? 1 : -1
-  );
-});
+
+const getLastModifiedTime = (lastmod?: string) =>
+  lastmod ? new Date(lastmod).getTime() : 0;
+
+const articles = computed(() =>
+  [...(data.value ?? [])].sort(
+    (a, b) =>
+      getLastModifiedTime(b.sitemap?.lastmod) -
+      getLastModifiedTime(a.sitemap?.lastmod)
+  )
+);
 
 useHead({
   title: "",
@@ -29,13 +33,13 @@ const isShowLangSwitcher = computed(
     <div v-if="isShowLangSwitcher" class="lang-switch">
       <SelectLang />
     </div>
-    <div v-for="article in articles" :key="article._path" class="article">
+    <div v-for="article in articles" :key="article.path" class="article">
       <ArticleCard
         :contents="{
           title: article.title ?? '',
           description: article.description,
-          tags: article.tags,
-          to: `${article._path}`,
+          tags: article.tags ?? null,
+          to: article.path,
         }"
         :path="$route.path"
       />

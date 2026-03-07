@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { useRoute } from "#app";
-import { queryContent } from "#imports";
 useHead({
   title: "Jabelic Web Press",
 });
 
 const route = useRoute();
 const { data: article } = await useAsyncData("article", () =>
-  queryContent("/articles/your-article").findOne()
+  queryCollection("articles").path(route.path).first()
 );
+
+if (!article.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Article not found",
+  });
+}
 
 useHead({
   meta: [
@@ -25,7 +31,7 @@ useHead({
 
 <template>
   <div class="container">
-    <ContentDoc />
+    <ContentRenderer v-if="article" :value="article" />
   </div>
 </template>
 
