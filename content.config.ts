@@ -9,14 +9,11 @@ export default defineContentConfig({
         title: z.string(),
         description: z.string().optional(),
         image: z.string().optional(),
-        tags: z
-          .array(
-            z.object({
-              name: z.string(),
-            })
-          )
-          .optional()
-          .nullable(),
+        tags: z.array(
+          z.object({
+            name: z.string(),
+          })
+        ).default([]),
         sitemap: z
           .object({
             lastmod: z.string().optional(),
