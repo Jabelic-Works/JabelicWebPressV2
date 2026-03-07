@@ -1,24 +1,15 @@
 <script setup lang="ts">
-import { useRootElementStore } from "~~/store/rootElement";
 import ArticleCard from "~/components/ArticleCard.vue";
 const { articles } = await useArticlesByLocale("en", { limit: 15 });
 
 useHead({
   title: "",
 });
-const route = useRoute();
-const rootElementStore = useRootElementStore();
-const isShowLangSwitcher = computed(
-  () => !route.path.includes("article") && rootElementStore.getWidth <= 600
-);
 </script>
 
 <template>
   <main>
-    <h1>From little acorns, mighty oaks grow</h1>
-    <div v-if="isShowLangSwitcher" class="lang-switch">
-      <SelectLang />
-    </div>
+    <h1 class="text-xl font-bold md:text-2xl">From little acorns, mighty oaks grow</h1>
     <div v-for="article in articles" :key="article.path" class="article">
       <ArticleCard
         :contents="{
@@ -49,20 +40,5 @@ h2 > a {
 h1 {
   margin-left: 3%;
   margin-right: 3%;
-}
-.lang-switch {
-  text-align: end;
-  margin-right: 3vw;
-  margin-top: 3vw;
-  margin-bottom: 3vw;
-  display: none;
-}
-@media screen and (max-width: 600px) {
-  .lang-switch {
-    margin-right: 3%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    display: block;
-  }
 }
 </style>

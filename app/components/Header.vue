@@ -1,274 +1,107 @@
 <script setup lang="ts">
+import type { NavigationMenuItem } from "@nuxt/ui";
 import { titles } from "~~/shared/i18n/constant";
+import {
+  getHeaderHomePath,
+  getHeaderProfilePath,
+  getLocaleFromPath,
+  isHomePath,
+  isProfilePath,
+} from "~~/shared/i18n/routing";
 import SelectLang from "./SelectLang.vue";
-import { useRootElementStore } from "~~/store/rootElement";
-const router = useRouter();
-
-const rootElementStore = useRootElementStore();
-/** 右上メニュー */
-type Contents = Array<{
-  title: string;
-  link: string;
-  target: "_blank" | null;
-}>;
-const contents = computed<Contents>(() =>
-  rootElementStore.getWidth < 600
-    ? [
-        {
-          title: "Home",
-          link: route.path.includes("ja") ? "/ja" : "/",
-          target: null,
-        },
-        {
-          title: "Profile",
-          link: route.path.includes("ja") ? "/ja/profile" : "/profile",
-          target: null,
-        },
-      ]
-    : [
-        {
-          title: "Home",
-          link: route.path.includes("ja") ? "/ja" : "/",
-          target: null,
-        },
-        {
-          title: "Profile",
-          link: route.path.includes("ja") ? "/ja/profile" : "/profile",
-          target: null,
-        },
-        {
-          title: "GitHub",
-          link: "https://github.com/jabelic",
-          target: "_blank",
-        },
-      ]
-);
-
-/** i18n */
 const route = useRoute();
-const isShowLangSwitcher = computed(
-  () => !route.path.includes("article") && rootElementStore.getWidth > 600
-);
 
-const mobileHeaderHeight = ref("3rem");
+const currentLocale = computed(() => getLocaleFromPath(route.path));
 
-/** 戻るボタン */
-const backTo = () => router.push(route.path.includes("ja") ? "/ja" : "/");
+const navigationItems = computed<NavigationMenuItem[]>(() => [
+  {
+    label: "Home",
+    to: getHeaderHomePath(currentLocale.value),
+    active: isHomePath(route.path),
+  },
+  {
+    label: "Profile",
+    to: getHeaderProfilePath(currentLocale.value),
+    active: isProfilePath(route.path),
+  },
+  {
+    label: "GitHub",
+    to: "https://github.com/jabelic",
+    target: "_blank",
+  },
+]);
+
+const headerUi = {
+  root: "bg-[linear-gradient(var(--jwp-color-header)_90%,var(--jwp-color-header-glow))]",
+  container: "mx-2 max-w-screen",
+  right: "sm:flex-1",
+  title:
+    "text-sm sm:text-lg !text-white hover:!text-white hover:underline active:!text-white",
+  toggle:
+    "sm:hidden -me-1.5 !text-white hover:!text-white active:!text-white",
+  content: "sm:hidden bg-[var(--jwp-color-header)] !text-white",
+  overlay: "sm:hidden",
+  header:
+    "h-[60px] bg-transparent !text-white",
+  body: "px-4 sm:px-6 py-4 bg-[linear-gradient(var(--jwp-color-header)_100%,var(--jwp-color-header))] !text-white",
+} as const;
+
+const desktopNavigationUi = {
+  list: "gap-2",
+  link:
+    "!text-white hover:!text-white hover:underline active:!text-white data-[state=open]:!text-white aria-[current=page]:!text-white",
+  linkLabel: "!text-white",
+  linkLeadingIcon: "!text-white",
+  linkTrailingIcon: "!text-white",
+} as const;
+
+const mobileNavigationUi = {
+  link:
+    "py-2 !text-white hover:!text-white hover:bg-[rgba(193,193,193,0.2)] active:bg-[rgba(193,193,193,0.5)] active:!text-white data-[state=open]:!text-white aria-[current=page]:!text-white",
+  linkLabel: "!text-white",
+  linkLeadingIcon: "!text-white",
+  linkTrailingIcon: "!text-white",
+} as const;
+
+
 </script>
 
 <template>
-  <div class="header-root">
-    <span class="left">
-      <NuxtLink class="header-title" @click="backTo">
-        {{ titles.ja.title }}
-      </NuxtLink>
-      <SelectLang v-if="isShowLangSwitcher" class="lang-switch" />
-    </span>
-    <div class="right">
-      <NuxtLink
-        v-for="content in contents"
-        class="header-content set-item-center"
-        :to="content.link"
-        :target="content.target"
-        rel="noopener"
-      >
-        <span class="">{{ content.title }}</span>
-      </NuxtLink>
-    </div>
-  </div>
+  <UHeader
+    class="md:h-16 h-14"
+    :to="getHeaderHomePath(currentLocale)"
+    :ui="headerUi"
+  >
+    <template #title>
+      <p>
+        {{ titles[currentLocale].title }}
+      </p>
+    </template>
+
+    <template #right>
+      <div class="hidden sm:flex items-center gap-3">
+        <UNavigationMenu
+          :items="navigationItems"
+          color="neutral"
+          variant="link"
+          :ui="desktopNavigationUi"
+        />
+        <SelectLang class="w-32 mt-auto mb-1" />
+      </div>
+    </template>
+
+    <template #body>
+      <div class="space-y-4">
+        <UNavigationMenu
+          :items="navigationItems"
+          orientation="vertical"
+          color="neutral"
+          variant="link"
+          :ui="mobileNavigationUi"
+          class="data-[orientation=vertical]:w-full"
+        />
+        <SelectLang class="w-full" />
+      </div>
+    </template>
+  </UHeader>
 </template>
-
-<style scoped>
-.header-root {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  height: 60px;
-  background-color: var(--jwp-color-header);
-  background: linear-gradient(
-    var(--jwp-color-header) 90%,
-    var(--jwp-color-header-glow)
-  );
-}
-.left {
-  display: flex;
-  align-items: center;
-}
-.header-title {
-  font-size: 18px;
-  color: var(--jwp-color-text);
-  margin-right: 1rem;
-  transition: color 0.3s;
-}
-.header-title:hover {
-  text-decoration: underline;
-}
-.header-title:active {
-  color: var(--jwp-color-link-active);
-}
-.lang-switch {
-  margin-left: 1rem;
-  margin-top: auto;
-}
-.right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.header-content {
-  font-size: 14px;
-  color: var(--jwp-color-text);
-  transition: color 0.3s;
-}
-.header-content:hover {
-  text-decoration: underline;
-}
-.header-content:active {
-  color: var(--jwp-color-link-active);
-}
-
-.set-item-center {
-  /** アイテムを中央にそろえる */
-  /* display: grid; */
-  display: flex;
-  /* place-items: center; */
-}
-@media screen and (max-width: 900px) {
-  .left {
-    /* grid-column-start: 0;
-      grid-column-end: 6;
-      grid-template-columns: repeat(10, 1fr); */
-  }
-  .header-title {
-    font-size: 16px;
-    /* grid-column-start: 1;
-      grid-column-end: 4; */
-  }
-  .lang-switch {
-    font-size: 16px;
-    /* grid-column-start: 4;
-      grid-column-end: 7; */
-  }
-  .right {
-    /* grid-column-start: 8;
-      grid-column-end: 11;
-      grid-template-columns: repeat(3, 1fr); */
-  }
-}
-@media screen and (max-width: 800px) {
-  .left {
-    /* grid-column-start: 0;
-      grid-column-end: 7;
-      grid-template-columns: repeat(10, 1fr); */
-  }
-  .header-title {
-    font-size: 16px;
-    /* grid-column-start: 0;
-      grid-column-end: 5; */
-  }
-  .lang-switch {
-    font-size: 16px;
-    /* grid-column-start: 5;
-      grid-column-end: 9; */
-  }
-  .right {
-    /* grid-column-start: 7;
-      grid-column-end: 11;
-      grid-template-columns: repeat(3, 1fr); */
-  }
-}
-@media screen and (max-width: 700px) {
-  .header-root {
-    /* grid-template-columns: repeat(10, 1fr);
-      grid-template-rows: v-bind(mobileHeaderHeight) 1fr; */
-    height: v-bind(mobileHeaderHeight);
-  }
-  .left {
-    height: v-bind(mobileHeaderHeight);
-    /* grid-template-rows: v-bind(mobileHeaderHeight) 1fr;
-      grid-column-start: 0;
-      grid-column-end: 8;
-      grid-template-columns: repeat(10, 1fr); */
-  }
-  .header-title {
-    font-size: 14px;
-    /* grid-column-start: 0;
-      grid-column-end: 5; */
-  }
-  .lang-switch {
-    font-size: 14px;
-    /* grid-column-start: 5;
-      grid-column-end: 9; */
-  }
-  .right {
-    height: v-bind(mobileHeaderHeight);
-    /* grid-template-rows: v-bind(mobileHeaderHeight) 1fr;
-      grid-column-start: 8;
-      grid-column-end: 11;
-      grid-template-columns: repeat(3, 1fr); */
-  }
-}
-@media screen and (max-width: 600px) {
-  .header-root {
-    /* display: grid; */
-    /* grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: v-bind(mobileHeaderHeight) 1fr; */
-    height: v-bind(mobileHeaderHeight);
-    background-color: var(--jwp-color-header);
-    background: linear-gradient(
-      var(--jwp-color-header) 100%,
-      var(--jwp-color-header)
-    ) !important;
-  }
-  .left {
-    height: v-bind(mobileHeaderHeight);
-    /* grid-column-start: 0;
-      grid-column-end: 8;
-      grid-template-columns: repeat(10, 1fr);
-      grid-template-rows: v-bind(mobileHeaderHeight) 1fr; */
-  }
-  .header-title {
-    font-size: 14px;
-    min-width: 30vw;
-    /* grid-column-start: 0;
-      grid-column-end: 5; */
-  }
-  .lang-switch {
-    font-size: 10px;
-    min-width: 30vw;
-    /* grid-column-start: 5;
-      grid-column-end: 9; */
-  }
-  .right {
-    height: v-bind(mobileHeaderHeight);
-    /* grid-column-start: 8;
-      grid-column-end: 13; */
-    /* grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: v-bind(mobileHeaderHeight) 1fr; */
-  }
-  .header-content {
-    font-size: 10px;
-    height: v-bind(mobileHeaderHeight);
-    /* grid-template-rows: v-bind(mobileHeaderHeight) 1fr; */
-    text-decoration: none;
-    color: var(--jwp-color-text);
-    transition: 0.5s;
-    align-items: center;
-  }
-  .header-content:hover {
-    background-color: rgba(193, 193, 193, 0.2);
-  }
-  .header-content:active {
-    background-color: rgba(193, 193, 193, 0.5);
-  }
-}
-@media screen and (max-width: 480px) {
-  .header-root {
-    padding: 0 1rem;
-  }
-  .header-title {
-    font-size: 12px;
-  }
-}
-</style>
