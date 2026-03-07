@@ -9,7 +9,7 @@
   interface ArticleCard {
     title?: string;
     description?: string;
-    tags: Array<{ name: string }> | null;
+    tags: Array<{ name: string }>;
     to: string;
     // id: string | number;
   }
@@ -19,7 +19,7 @@
     contents: () => ({
       title: "default",
       description: "",
-      tags: null,
+      tags: [],
       to: "/",
       // id: "",
     }),
@@ -36,7 +36,7 @@
         <h1 class="card-title">{{ props.contents.title }}</h1>
         <p class="card-text">{{ props.contents.description }}</p>
       </div>
-      <div v-if="props.contents.tags" class="card-tags">
+      <div v-if="props.contents.tags.length" class="card-tags">
         <span v-for="tag in props.contents.tags" class="card-tag">
           <Tag :tag="tag" />
         </span>

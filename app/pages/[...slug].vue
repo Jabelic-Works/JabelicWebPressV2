@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { useRoute } from "#app";
-useHead({
-  title: "Jabelic Web Press",
-});
+import { getArticleByPathKey } from "~~/shared/content/articles";
 
 const route = useRoute();
-const { data: article } = await useAsyncData("article", () =>
-  queryCollection("articles").path(route.path).first()
+const articlePath = computed(() => route.path);
+const articleKey = computed(() => getArticleByPathKey(articlePath.value));
+const { data: article } = await useAsyncData(
+  articleKey,
+  () => queryCollection("articles").path(articlePath.value).first(),
+  {
+    watch: [articlePath],
+  }
 );
 
 if (!article.value) {
@@ -16,16 +20,13 @@ if (!article.value) {
   });
 }
 
-useHead({
-  meta: [
-    {
-      property: "og:title",
-      content: `${article.value?.title} | Jabelic Web Press`,
-    },
-    { property: "og:type", content: "article" },
-    { property: "og:image", content: article.value?.image || "/image/ogp.jpg" },
-    { name: "description", content: article.value?.description },
-  ],
+useSeoMeta({
+  title: () => `${article.value?.title} | Jabelic Web Press`,
+  description: () => article.value?.description ?? "Jabelic Web Press",
+  ogTitle: () => `${article.value?.title} | Jabelic Web Press`,
+  ogType: "article",
+  ogImage: () => article.value?.image || "/image/ogp.jpg",
+  ogDescription: () => article.value?.description ?? "Jabelic Web Press",
 });
 </script>
 

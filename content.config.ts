@@ -6,17 +6,15 @@ export default defineContentConfig({
       type: "page",
       source: "**/*.md",
       schema: z.object({
+        publishedAt: z.string(),
         title: z.string(),
         description: z.string().optional(),
         image: z.string().optional(),
-        tags: z
-          .array(
-            z.object({
-              name: z.string(),
-            })
-          )
-          .optional()
-          .nullable(),
+        tags: z.array(
+          z.object({
+            name: z.string(),
+          })
+        ).default([]),
         sitemap: z
           .object({
             lastmod: z.string().optional(),
