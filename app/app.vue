@@ -1,30 +1,21 @@
 <script setup lang="ts">
 import Header from "~/components/Header.vue";
 import { APP_NAME } from "~~/shared/app/global";
-import { useElementSize } from "@vueuse/core";
-import { useRootElementStore } from "~~/store/rootElement";
-const el = ref(null);
-const { height: elHeight, width: elWidth } = useElementSize(el);
-const store = useRootElementStore();
-watch(elHeight, (arg) => {
-  store.setHeight(arg);
-});
-watch(elWidth, (arg) => {
-  store.setWidth(arg);
-});
+import { getLocaleFromPath } from "~~/shared/i18n/routing";
+
+const route = useRoute();
+const htmlLang = computed(() => getLocaleFromPath(route.path));
 </script>
 <template>
-  <Html lang="ja" class="dark">
+  <Html :lang="htmlLang" class="dark">
     <Head>
       <Title>{{ APP_NAME }}</Title>
       <Meta name="description" content="Jabelic Web Press" />
     </Head>
     <Body>
       <UApp>
-        <div ref="el">
-          <Header />
-          <NuxtPage />
-        </div>
+        <Header />
+        <NuxtPage />
       </UApp>
     </Body>
   </Html>
