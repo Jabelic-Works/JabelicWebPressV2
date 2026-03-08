@@ -1,121 +1,55 @@
 <script setup lang="ts">
-  //   import { Locales, locales } from "~~/src/shared/i18n/locale";
-  import Tag from "./Tag.vue";
+import Tag from "./Tag.vue";
 
-  interface Props {
-    contents: ArticleCard;
-    path: string;
-  }
-  interface ArticleCard {
-    title?: string;
-    description?: string;
-    tags: Array<{ name: string }>;
-    to: string;
-    // id: string | number;
-  }
+interface Props {
+  contents: ArticleCard;
+  path: string;
+}
 
-  // NOTE: importした型を直接genericsに当てられない https://github.com/vuejs/core/issues/4294
-  const props = withDefaults(defineProps<Props>(), {
-    contents: () => ({
-      title: "default",
-      description: "",
-      tags: [],
-      to: "/",
-      // id: "",
-    }),
-  });
+interface ArticleCard {
+  title?: string;
+  description?: string;
+  tags: Array<{ name: string }>;
+  to: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  contents: () => ({
+    title: "default",
+    description: "",
+    tags: [],
+    to: "/",
+  }),
+});
+
+const cardUi = {
+  root:
+    "group overflow-hidden bg-[var(--jwp-color-surface)] text-[var(--jwp-color-text)] ring-[rgba(8,102,0,0)] transition-colors duration-100 hover:ring-[var(--jwp-color-border-strong)] active:ring-[var(--jwp-color-border-strong)]",
+  body: "p-4 sm:p-5",
+} as const;
 </script>
 
 <template>
-  <NuxtLink :to="props.contents.to">
-    <section class="card">
-      <div class="card-content">
-        <h1 class="card-title">{{ props.contents.title }}</h1>
-        <p class="card-text">{{ props.contents.description }}</p>
-      </div>
-      <div v-if="props.contents.tags.length" class="card-tags">
-        <span v-for="tag in props.contents.tags" class="card-tag">
+  <NuxtLink :to="props.contents.to" class="block !mt-0 !text-inherit no-underline">
+    <UCard variant="outline" :ui="cardUi">
+      <div class="space-y-4">
+        <div class="space-y-3">
+          <h2
+            class="m-0 !pt-0 text-left text-lg font-medium text-[var(--jwp-color-text)] transition-colors duration-100 group-hover:text-[var(--jwp-color-link)] group-active:text-[var(--jwp-color-link-active)] sm:text-xl"
+          >
+            {{ props.contents.title }}
+          </h2>
+          <p class="text-sm leading-6 text-[var(--jwp-color-text-muted)]">
+            {{ props.contents.description }}
+          </p>
+        </div>
+
+        <div v-if="props.contents.tags.length" class="flex flex-wrap gap-2 pt-1">
+          <span v-for="tag in props.contents.tags" :key="tag.name">
           <Tag :tag="tag" />
         </span>
+        </div>
       </div>
-    </section>
+    </UCard>
   </NuxtLink>
 </template>
-
-<style scoped>
-  h1 {
-    border-bottom: none !important;
-  }
-  h2 > a {
-    border-bottom: none !important;
-  }
-  .card {
-    background: var(--jwp-color-surface);
-    border: 0.1rem solid;
-    border-color: rgba(8, 102, 0, 0);
-    border-radius: 5px;
-    border-radius: 0.5rem;
-    transition: 0.5s;
-  }
-  .card:hover,
-  .card:active {
-    border: solid 0.1rem var(--jwp-color-border-strong);
-    border-color: var(--jwp-color-border-strong);
-    color: var(--jwp-color-link);
-  }
-  .card-content {
-    padding: 2%;
-  }
-  .card-title {
-    font-size: 20px;
-    margin: 0;
-    padding-top: 1rem;
-    margin-bottom: 20px;
-    text-align: start;
-    color: var(--jwp-color-text);
-  }
-  .card-title:hover {
-    color: var(--jwp-color-link);
-  }
-  .card-title:active {
-    color: var(--jwp-color-link-active);
-  }
-  .card-text {
-    color: var(--jwp-color-text-muted);
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .card-tags {
-    padding-left: 1rem;
-  }
-  .card-tag {
-    margin-left: 0.3rem;
-    margin-right: 0.3rem;
-  }
-  .card-link {
-    text-align: center;
-    border-top: 1px solid #eee;
-    padding: 20px;
-  }
-  .card-link a {
-    text-decoration: none;
-    color: var(--jwp-color-link-active);
-    margin: 0 10px;
-    transition: 0.5s;
-  }
-  .card-link a:hover {
-    color: var(--jwp-color-link);
-  }
-  @media screen and (max-width: 600px) {
-    .card-title {
-      font-size: 14px;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      text-align: start;
-      color: var(--jwp-color-text);
-    }
-    .card-title:active {
-      color: var(--jwp-color-link-active);
-    }
-  }
-</style>
