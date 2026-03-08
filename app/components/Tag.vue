@@ -1,36 +1,24 @@
 <script setup lang="ts">
-  interface Props {
-    tag: {
-      name: string;
-    };
-  }
+interface Props {
+  tag: {
+    name: string;
+  };
+}
 
-  const Props = withDefaults(defineProps<Props>(), {
-    tag: () => ({
-      name: "tag",
-    }),
-  });
+const props = withDefaults(defineProps<Props>(), {
+  tag: () => ({
+    name: "tag",
+  }),
+});
 </script>
 
 <template>
-  <div class="root">
-    {{ Props.tag.name }}
-  </div>
+  <UBadge
+    color="neutral"
+    variant="outline"
+    size="sm"
+    class="bg-transparent !text-[var(--jwp-color-text)] !ring-[var(--jwp-color-border-strong)] font-[SawarabiMincho]"
+  >
+    {{ props.tag.name }}
+  </UBadge>
 </template>
-
-<style scoped>
-  .root {
-    display: inline-block;
-    padding: 4px 8px;
-    margin: 0 8px 10px 0;
-    background: rgba(0, 0, 0, 0);
-    font-size: 0.8em;
-    /* FIXME: color変更 */
-    border: 1px solid #0085de;
-    border-radius: 3px;
-    visibility: visible;
-    position: relative;
-    color: white;
-    font-family: "SawarabiMincho";
-  }
-</style>
