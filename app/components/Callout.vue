@@ -10,38 +10,3 @@
     </div>
   </div>
 </template>
-<style scoped>
-.bg-white {
-  background-color: #fff;
-}
-.shadow {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.overflow-hidden {
-  overflow: hidden;
-}
-.sm\:rounded-lg {
-  border-radius: 0.5rem;
-}
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
-.sm\:px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-.text-lg {
-  font-size: 1.125rem;
-}
-.font-medium {
-  font-weight: 500;
-}
-.text-gray-900 {
-  color: #1a202c;
-}
-</style>

@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @import "tailwindcss";
 @import "@nuxt/ui";
 
@@ -62,8 +61,8 @@
   margin: 0;
 }
 
-/* Nuxt Content を使う間は global に残すレイアウト補正 */
-[class*="content:"] {
+/* 記事本文に残すコンテンツ補正 */
+.article-content {
   max-width: 100% !important;
   overflow-x: auto;
   word-wrap: break-word;
@@ -71,8 +70,8 @@
 }
 
 /* コードブロック */
-pre,
-pre code {
+.article-content pre,
+.article-content pre code {
   max-width: 100%;
   overflow-x: auto;
   white-space: pre-wrap;
@@ -81,7 +80,7 @@ pre code {
 }
 
 /* インラインコード */
-code:not(pre code) {
+.article-content code:not(pre code) {
   white-space: normal;
   word-break: normal;
   overflow-wrap: normal;
@@ -92,7 +91,7 @@ code:not(pre code) {
 }
 
 /* テーブル */
-table {
+.article-content table {
   width: 100% !important;
   max-width: 100% !important;
   overflow-x: auto !important;
@@ -102,20 +101,20 @@ table {
 
 /* モバイル専用のコンテンツスタイル */
 @media screen and (max-width: 600px) {
-  [class*="content:"] {
+  .article-content {
     font-size: 12px !important;
     line-height: 1.4 !important;
   }
 
-  pre,
-  pre code {
+  .article-content pre,
+  .article-content pre code {
     font-size: 10px !important;
     padding: 8px !important;
     margin: 4px 0 !important;
   }
 
   /* 非常に長い文字列も強制的に改行 */
-  * {
+  .article-content * {
     word-break: break-word !important;
     overflow-wrap: break-word !important;
     hyphens: auto !important;
@@ -123,96 +122,29 @@ table {
 }
 
 @media screen and (max-width: 480px) {
-  [class*="content:"] {
+  .article-content {
     font-size: 10px !important;
   }
 
-  pre,
-  pre code {
+  .article-content pre,
+  .article-content pre code {
     font-size: 9px !important;
     padding: 6px !important;
   }
 }
 
-/* 個別コンポーネント置換まで残す既存アニメーション群 */
-.animation-bg {
-  z-index: 999;
-}
-@keyframes PageAnime-rtl {
-  0% {
-    transform-origin: right;
-    transform: scaleX(0);
-  }
-  50% {
-    transform-origin: right;
-    transform: scaleX(1);
-  }
-  50.001% {
-    transform-origin: left;
-  }
-  100% {
-    transform-origin: left;
-    transform: scaleX(0);
-  }
-}
-@keyframes PageAnime-ltr {
-  0% {
-    transform-origin: left;
-    transform: scaleX(0);
-  }
-  50% {
-    transform-origin: left;
-    transform: scaleX(1);
-  }
-  50.001% {
-    transform-origin: right;
-  }
-  100% {
-    transform-origin: right;
-    transform: scaleX(0);
-  }
-}
-
-.transition {
-  position: absolute;
-  /* height:100%; */
-  width: 0%;
-  z-index: 999;
-  background: var(--jwp-color-header);
-  transform: skewX(0deg) translateX(-50px);
-  transition: 0.3s all ease-in-out;
-  -webkit-transition: 0.3s all ease-in-out;
-}
-
-.content {
-  position: relative;
-  z-index: 990;
-}
-
-.cta {
-  outline: none;
-  border: none;
-  text-decoration: none;
-  text-transform: uppercase;
-  box-sizing: border-box;
-  margin-top: 20px;
-  padding: 10px 40px;
-}
-
-.anim-trans {
-  animation: anim 0.5s ease-in-out;
-}
-
 body {
   background-color: var(--jwp-color-background);
   color: var(--jwp-color-text);
+  margin: 0;
+  padding: 0;
   /** font kerning */
   font-feature-settings: "palt";
   letter-spacing: 0.1rem;
   /** 行間  */
   line-height: .8rem;
 }
-a {
+.article-content a {
   margin: 0;
   padding: 0;
   vertical-align: baseline;
@@ -226,160 +158,104 @@ a {
       transition: 0.5s;
       color: white; */
 }
-a:hover {
+
+.article-content a:hover {
   color: var(--jwp-color-link-hover);
 }
-a:active {
+
+.article-content a:active {
   color: var(--jwp-color-link-active);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5 {
   padding-top: 2rem;
 }
 
 @media screen and (max-width: 600px) {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
+  .article-content h1,
+  .article-content h2,
+  .article-content h3,
+  .article-content h4,
+  .article-content h5 {
     padding-top: 1rem;
   }
 }
 
-h1 {
+.article-content h1 {
   border-bottom: double 6px var(--jwp-color-text);
 }
-h2 > a {
+
+.article-content h2 > a {
   border-bottom: double 6px var(--jwp-color-text);
 }
-h2 > a,
-h3 > a,
-h4 > a {
+
+.article-content h2 > a,
+.article-content h3 > a,
+.article-content h4 > a {
   color: var(--jwp-color-text);
 }
 
 @media screen and (max-width: 800px) {
-  h1 {
+  .article-content h1 {
     font-size: 30px;
     padding-top: 3%;
   }
 }
 @media screen and (max-width: 600px) {
-  h1 {
+  .article-content h1 {
     font-size: 24px;
     padding-top: 3%;
   }
-  h2 {
+
+  .article-content h2 {
     font-size: 16px;
     padding-top: 3%;
   }
-  h3 {
+
+  .article-content h3 {
     font-size: 14px;
     padding-top: 3%;
   }
-  p,
-  div,
-  span,
-  ul,
-  li {
+
+  .article-content p,
+  .article-content div,
+  .article-content span,
+  .article-content ul,
+  .article-content li {
     font-size: 12px;
   }
 }
 @media screen and (max-width: 480px) {
-  h1 {
+  .article-content h1 {
     font-size: 20px;
     padding-top: 3%;
   }
-  h2 {
+
+  .article-content h2 {
     font-size: 16px;
     padding-top: 3%;
   }
-  h3 {
+
+  .article-content h3 {
     font-size: 12px;
     padding-top: 3%;
   }
-  p,
-  div,
-  span,
-  ul,
-  li {
+
+  .article-content p,
+  .article-content div,
+  .article-content span,
+  .article-content ul,
+  .article-content li {
     font-size: 10px;
   }
 }
 
-@keyframes anim {
-  0% {
-    transform: translateX(0);
-    width: 100%;
-    z-index: 999;
-    box-shadow: 10px 10px 10px #eaeaea;
-  }
-  60% {
-    z-index: 999;
-    transform: translateX(-10%);
-  }
-  100% {
-  }
-}
-
-.animation-bg {
-  z-index: 999;
-}
-@keyframes PageAnime-rtl {
-  0% {
-    transform-origin: right;
-    transform: scaleX(0);
-  }
-  50% {
-    transform-origin: right;
-    transform: scaleX(1);
-  }
-  50.001% {
-    transform-origin: left;
-  }
-  100% {
-    transform-origin: left;
-    transform: scaleX(0);
-  }
-}
-@keyframes PageAnime-ltr {
-  0% {
-    transform-origin: left;
-    transform: scaleX(0);
-  }
-  50% {
-    transform-origin: left;
-    transform: scaleX(1);
-  }
-  50.001% {
-    transform-origin: right;
-  }
-  100% {
-    transform-origin: right;
-    transform: scaleX(0);
-  }
-}
-
-.transition {
-  position: absolute;
-  /* height:100%; */
-  width: 0%;
-  z-index: 999;
-  background: var(--jwp-color-header);
-  transform: skewX(0deg) translateX(-50px);
-  transition: 0.3s all ease-in-out;
-  -webkit-transition: 0.3s all ease-in-out;
-}
-
 html,
 body {
-  margin: 0;
-  padding: 0;
   background-color: var(--jwp-color-background);
   color: var(--jwp-color-text);
 }

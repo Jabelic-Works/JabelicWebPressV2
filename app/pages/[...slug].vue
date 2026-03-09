@@ -39,7 +39,7 @@ useSeoMeta({
         v-if="article"
         :value="article"
         tag="article"
-        class="mx-auto w-full max-w-4xl"
+        class="article-content mx-auto w-full max-w-4xl"
       />
     </UContainer>
   </main>
