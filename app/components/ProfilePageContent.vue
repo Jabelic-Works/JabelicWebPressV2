@@ -20,7 +20,7 @@ setTimeout(() => {
 
 <template>
   <main class="min-h-[calc(100svh-var(--ui-header-height))] bg-[var(--jwp-color-background)]">
-    <div class="transition" :class="{ 'anim-trans': trans }"></div>
+    <div class="page-transition" :class="{ 'anim-trans': trans }"></div>
 
     <UContainer class="py-6 sm:py-8">
       <section class="space-y-4 sm:space-y-6">
@@ -68,3 +68,34 @@ setTimeout(() => {
     </UContainer>
   </main>
 </template>
+
+<style scoped>
+.page-transition {
+  position: absolute;
+  width: 0%;
+  z-index: 999;
+  background: var(--jwp-color-header);
+  transform: skewX(0deg) translateX(-50px);
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+}
+
+.anim-trans {
+  animation: anim 0.5s ease-in-out;
+}
+
+@keyframes anim {
+  0% {
+    transform: translateX(0);
+    width: 100%;
+    z-index: 999;
+    box-shadow: 10px 10px 10px #eaeaea;
+  }
+  60% {
+    z-index: 999;
+    transform: translateX(-10%);
+  }
+  100% {
+  }
+}
+</style>

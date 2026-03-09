@@ -86,7 +86,7 @@ const mobileNavigationUi = {
           variant="link"
           :ui="desktopNavigationUi"
         />
-        <SelectLang class="w-32 mt-auto mb-1" />
+        <SelectLang class="w-32" />
       </div>
     </template>
 
