@@ -31,44 +31,16 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="container">
-    <ContentRenderer v-if="article" :value="article" />
-  </div>
+  <main
+    class="min-h-[calc(100svh-var(--ui-header-height))] bg-[var(--jwp-color-background)] py-2 sm:py-4 lg:py-6"
+  >
+    <UContainer>
+      <ContentRenderer
+        v-if="article"
+        :value="article"
+        tag="article"
+        class="mx-auto w-full max-w-4xl"
+      />
+    </UContainer>
+  </main>
 </template>
-
-<style scoped lang="scss">
-.container {
-  display: flex;
-  justify-content: center;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 1%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* タブレット以下のサイズ */
-@media screen and (max-width: 800px) {
-  .container {
-    padding-left: 3%;
-    padding-right: 3%;
-  }
-}
-
-/* モバイルサイズ */
-@media screen and (max-width: 600px) {
-  .container {
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 2%;
-  }
-}
-
-/* 小さなモバイルサイズ */
-@media screen and (max-width: 480px) {
-  .container {
-    padding-left: 1%;
-    padding-right: 1%;
-  }
-}
-</style>
