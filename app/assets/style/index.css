@@ -64,6 +64,8 @@
 /* 記事本文に残すコンテンツ補正 */
 .article-content {
   max-width: 100% !important;
+  overflow-x: auto;
+  word-wrap: break-word;
   box-sizing: border-box;
 }
 
