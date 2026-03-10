@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import ArticleListPage from "~/components/ArticleListPage.vue";
 const { articles } = await useArticlesByLocale("en", { limit: 15 });
-
-useHead({
-  title: "",
-});
 </script>
 
 <template>
