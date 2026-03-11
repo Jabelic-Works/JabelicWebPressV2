@@ -32,6 +32,33 @@ Its configuration can live in the `cspell` field of `package.json` or in `cspell
 
 So the accurate distinction is that `package.json` and `cspell.json` are usually where the configuration lives, while `cspell.txt` is one possible project dictionary file referenced by that configuration. In real projects, this is useful for product names, abbreviations, proper nouns, and team-specific terms that do not exist in a general-purpose dictionary.
 
+The smallest practical setup looks something like this:
+
+```json
+{
+  "name": "your-project",
+  "cspell": {
+    "version": "0.2",
+    "dictionaryDefinitions": [
+      {
+        "name": "project-words",
+        "path": "./cspell.txt",
+        "addWords": true
+      }
+    ],
+    "dictionaries": ["project-words"]
+  }
+}
+```
+
+```text
+# cspell.txt
+productname
+worktree
+```
+
+In this example, the `cspell` configuration lives in `package.json`, and `cspell.txt` is loaded as a custom dictionary. If your project already manages a `.txt` dictionary file like this, it is usually clearer to keep project-specific words there instead of duplicating the same entries in `words`.
+
 This article focuses on the case where a project already manages a text dictionary file such as `cspell.txt`, and explains how to keep that file automatically sorted on save.
 
 ## What I wanted

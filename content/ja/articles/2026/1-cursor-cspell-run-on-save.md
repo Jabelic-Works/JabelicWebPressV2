@@ -32,6 +32,33 @@ tags:
 
 つまり、`package.json` や `cspell.json` は主に設定の置き場です。一方で、`cspell.txt` はその設定から参照されるプロジェクト辞書の 1 例、と理解するのが正確です。実際のプロジェクトでは、プロダクト名、略語、固有名詞、社内用語など、一般的な辞書には載っていないものの正しい単語が多く登場するため、こうした追加辞書を運用することがよくあります。
 
+最小構成のイメージは、たとえば次のようになります。
+
+```json
+{
+  "name": "your-project",
+  "cspell": {
+    "version": "0.2",
+    "dictionaryDefinitions": [
+      {
+        "name": "project-words",
+        "path": "./cspell.txt",
+        "addWords": true
+      }
+    ],
+    "dictionaries": ["project-words"]
+  }
+}
+```
+
+```text
+# cspell.txt
+productname
+worktree
+```
+
+この例では、`package.json` 側に `cspell` の設定を書き、`cspell.txt` を custom dictionary として読み込んでいます。この記事のように `.txt` の辞書ファイルを運用する前提なら、同じ単語をさらに `words` にも重ねて書くより、辞書側に寄せて管理したほうが分かりやすいです。
+
 この記事では、その中でも `cspell.txt` のようなテキスト辞書ファイルをすでに運用している前提で、「そのファイルを保存時に自動整列する」方法に絞って説明します。
 
 ## やりたかったこと
