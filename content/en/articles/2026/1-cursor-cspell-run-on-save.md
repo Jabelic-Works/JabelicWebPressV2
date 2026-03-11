@@ -98,7 +98,7 @@ In that case, it is much easier to define the rule once in Cursor user settings 
 
 ## A common VS Code setup may not work in Cursor as-is
 
-If you search for “run command on save in VS Code,” you will often find examples using `emeraldwalk.RunOnSave`.
+If you search for “run command on save in VS Code,” you will often find examples using [`emeraldwalk.RunOnSave`](https://github.com/emeraldwalk/vscode-runonsave).
 
 In my environment, however, I could not install that extension directly in Cursor. Even if an extension is common on the VS Code Marketplace, it may not always be available through Cursor in the same way.
 

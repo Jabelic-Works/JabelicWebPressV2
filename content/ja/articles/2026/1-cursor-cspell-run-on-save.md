@@ -98,7 +98,7 @@ LC_ALL=C sort -u "${file}" -o "${file}"
 
 ## VS Code の定番設定が Cursor ではそのまま使えないことがある
 
-保存時に任意コマンドを走らせる方法として、VS Code 周辺では `emeraldwalk.RunOnSave` を使った例をよく見かけます。
+保存時に任意コマンドを走らせる方法として、VS Code 周辺では [`emeraldwalk.RunOnSave`](https://github.com/emeraldwalk/vscode-runonsave) を使った例をよく見かけます。
 
 しかし今回の環境では、この拡張を Cursor にそのまま導入できませんでした。VS Code Marketplace では有名な拡張でも、Cursor 側の拡張配布経路との違いで素直に入らない場合があるようです。
 
