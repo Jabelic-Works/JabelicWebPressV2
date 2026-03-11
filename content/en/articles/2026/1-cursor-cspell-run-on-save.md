@@ -30,7 +30,7 @@ That is why it is helpful to sort the dictionary automatically whenever you upda
 
 Its configuration can live in the `cspell` field of `package.json` or in `cspell.json` style config files. In that configuration, you can either list accepted words directly in `words`, or load text files such as `cspell.txt` as custom dictionaries via the [Custom Dictionaries](https://cspell.org/docs/dictionaries/custom-dictionaries) mechanism.
 
-So the accurate distinction is that `package.json` and `cspell.json` are usually where the configuration lives, while `cspell.txt` is one possible project dictionary file referenced by that configuration. In real projects, this is useful for product names, abbreviations, proper nouns, and team-specific terms that do not exist in a general-purpose dictionary.
+In other words, `package.json` and `cspell.json` are where the configuration lives, while `cspell.txt` is the project dictionary referenced by that configuration. In many projects, valid terms such as domain language are not part of a general-purpose dictionary, so maintaining an additional dictionary quickly becomes useful.
 
 The smallest practical setup looks something like this:
 
