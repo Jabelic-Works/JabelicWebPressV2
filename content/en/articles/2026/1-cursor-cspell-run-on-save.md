@@ -76,7 +76,7 @@ Each part has a purpose:
 - `-o "${file}"`: writes the result back to the same file
 - `LC_ALL=C`: helps keep the ordering stable across environments
 
-You can always run this command manually, but having it run on save is much more comfortable.
+For something at this scale, you could always run this command manually, but having it run on save is much more comfortable.
 
 ## Workspace settings are fine for a single repository
 
@@ -102,11 +102,9 @@ If you search for “run command on save in VS Code,” you will often find exam
 
 In my environment, however, I could not install that extension directly in Cursor. Even if an extension is common on the VS Code Marketplace, it may not always be available through Cursor in the same way.
 
-I do not want to overstate this as “it never works in Cursor.” The more accurate statement is that, in this environment, I needed an alternative.
-
 ## `pucelle.run-on-save` worked well in Cursor
 
-I ended up using `pucelle.run-on-save`. Add the following settings to Cursor user settings at `~/Library/Application Support/Cursor/User/settings.json`.
+I ended up using [`pucelle.run-on-save`](https://github.com/pucelle/vscode-run-on-save). Add the following settings to Cursor user settings at `~/Library/Application Support/Cursor/User/settings.json`.
 
 ```json
 {
@@ -122,13 +120,11 @@ I ended up using `pucelle.run-on-save`. Add the following settings to Cursor use
 }
 ```
 
-Here, `your-project` is just an example. In practice, replace it with your own project directory name.
-
 With this setup, `sort -u` runs only when saving `cspell.txt` files under the target project.
 
 ## What the `match` pattern means
 
-The most important part of the setup is the `match` pattern:
+In this setup, `match` is what scopes the save hook to the files you actually want:
 
 ```text
 [\\/]your-project(?:[\\/][^\\/]+)?[\\/]cspell\.txt$
@@ -143,8 +139,6 @@ In other words, it covers both the repository root `cspell.txt` and a `cspell.tx
 
 At the same time, it intentionally does not match much deeper directory structures. If your team uses a different layout, you can adjust the regular expression to fit it.
 
-## Why narrowing `match` matters
-
 You could use a much broader pattern like `cspell\\.txt$`, and it would work. But then the rule might also fire for unrelated projects.
 
 Save hooks are convenient, but broad rules can create confusing side effects later. Limiting the rule to the projects you actually want is safer.
@@ -153,31 +147,11 @@ Save hooks are convenient, but broad rules can create confusing side effects lat
 
 The full setup process looks like this:
 
-1. Install `pucelle.run-on-save` in Cursor
+1. Install [`pucelle.run-on-save`](https://github.com/pucelle/vscode-run-on-save) in Cursor
 2. Add the configuration to `~/Library/Application Support/Cursor/User/settings.json`
 3. Reload the window if needed with `Developer: Reload Window`
 4. Add one unsorted word to `cspell.txt`
 5. Save the file and confirm it gets reordered automatically
-
-One small but important detail: if the file is already sorted and has no duplicates, saving it may show no visible change. For the first test, it is better to intentionally add an unsorted word.
-
-## Common pitfalls
-
-### The extension is not installed or not active
-
-The setting alone is not enough. The extension must be installed and active. If it still does not work right after installation, reloading Cursor may help.
-
-### The `match` pattern is too narrow
-
-If it works in the repository root but not in a worktree, the pattern is usually not matching the actual file path. Since the rule uses the full path, it helps to write down a real example path and compare it to the expression.
-
-### The `match` pattern is too broad
-
-If the pattern is too broad, it may affect `cspell.txt` files in other repositories. Save automation is useful, but its scope should be explicit.
-
-### The file was already sorted
-
-`sort -u` does not create a visible change when there is nothing to reorder or deduplicate. Sometimes the automation is working perfectly and there is simply nothing to change.
 
 ## How this differs from pre-commit hooks
 
