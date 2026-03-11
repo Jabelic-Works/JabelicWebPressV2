@@ -141,7 +141,7 @@ At the same time, it intentionally does not match much deeper directory structur
 
 You could use a much broader pattern like `cspell\\.txt$`, and it would work. But then the rule might also fire for unrelated projects.
 
-Save hooks are convenient, but broad rules can create confusing side effects later. Limiting the rule to the projects you actually want is safer.
+Save hooks are convenient, but broad rules can create confusing side effects later.
 
 ## Setup steps
 
