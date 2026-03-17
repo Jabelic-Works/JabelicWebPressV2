@@ -32,7 +32,7 @@ Its configuration can live in the `cspell` field of `package.json` or in `cspell
 
 In other words, `package.json` and `cspell.json` are where the configuration lives, while `cspell.txt` is the project dictionary referenced by that configuration. In many projects, valid terms such as domain language are not part of a general-purpose dictionary, so maintaining an additional dictionary quickly becomes useful.
 
-The smallest practical setup looks something like this:
+The practical setup looks something like this:
 
 ```json
 {
