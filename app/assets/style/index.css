@@ -8,11 +8,8 @@
  * app/app.config.ts only maps semantic aliases like primary/secondary.
  */
 @theme static {
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
-    "Hiragino Sans", "Yu Gothic", sans-serif;
-  --font-serif:
-    "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  --font-sans: "SawarabiMincho", serif;
+  --font-serif: "SawarabiMincho", serif;
 
   --color-brand-50: #effcf5;
   --color-brand-100: #d7f6e4;
@@ -39,6 +36,12 @@
   --color-accent-950: #240822;
 }
 
+@font-face {
+  font-family: "SawarabiMincho";
+  src: url("../font/SawarabiMincho/SawarabiMincho-Regular.ttf")
+    format("truetype");
+}
+
 /* アプリ全体に残すグローバル基礎スタイル */
 :root {
   --jwp-color-background: rgba(10, 10, 10, 0.8);
@@ -52,7 +55,7 @@
   --jwp-color-header: var(--color-primary-800);
   --jwp-color-header-glow: #7fda2488;
 
-  font-family: var(--font-sans);
+  font-family: "SawarabiMincho";
   color: var(--jwp-color-text);
   background-color: var(--jwp-color-background);
   margin: 0;
@@ -63,7 +66,6 @@
   max-width: 48rem !important;
   box-sizing: border-box;
   color: var(--jwp-color-text);
-  font-family: var(--font-sans);
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.08rem);
   letter-spacing: 0.01em;
   line-height: 1.85;
