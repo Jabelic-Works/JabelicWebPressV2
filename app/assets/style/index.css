@@ -61,33 +61,117 @@
   margin: 0;
 }
 
-/* 記事本文に残すコンテンツ補正 */
+/* 記事本文: Zenn/Qiita に近い、癖の少ない読み物レイアウト */
 .article-content {
-  max-width: 100% !important;
-  overflow-x: auto;
-  word-wrap: break-word;
+  max-width: 48rem !important;
   box-sizing: border-box;
+  color: var(--jwp-color-text);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.08rem);
+  letter-spacing: 0.01em;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+.article-content > * + * {
+  margin-top: 1.15em;
+}
+
+.article-content p,
+.article-content ul,
+.article-content ol,
+.article-content blockquote {
+  margin-bottom: 0;
+}
+
+.article-content ul,
+.article-content ol {
+  padding-left: 1.5em;
+}
+
+.article-content li + li {
+  margin-top: 0.35em;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5 {
+  color: var(--jwp-color-text);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  scroll-margin-top: calc(var(--ui-header-height) + 1rem);
+}
+
+.article-content h1 {
+  margin-top: 0;
+  padding-bottom: 0.45em;
+  border-bottom: 1px solid color-mix(in srgb, var(--jwp-color-text) 28%, transparent);
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.4rem);
+}
+
+.article-content h2 {
+  margin-top: 2.4em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid color-mix(in srgb, var(--jwp-color-text) 22%, transparent);
+  font-size: clamp(1.35rem, 1.18rem + 0.7vw, 1.75rem);
+}
+
+.article-content h3 {
+  margin-top: 2em;
+  font-size: clamp(1.15rem, 1.06rem + 0.35vw, 1.35rem);
+}
+
+.article-content h4,
+.article-content h5 {
+  margin-top: 1.8em;
+  font-size: 1.05em;
 }
 
 /* コードブロック */
-.article-content pre,
-.article-content pre code {
+.article-content pre {
   max-width: 100%;
   overflow-x: auto;
-  white-space: pre-wrap;
-  word-break: break-all;
+  margin: 1.5em 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--jwp-color-text) 12%, transparent);
+  border-radius: 12px;
+  background: #121826;
   box-sizing: border-box;
+  line-height: 1.7;
+}
+
+.article-content pre code {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.92em;
+  line-height: inherit;
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 /* インラインコード */
 .article-content code:not(pre code) {
-  white-space: normal;
+  padding: 0.18em 0.38em;
+  border: 1px solid color-mix(in srgb, var(--jwp-color-link) 20%, transparent);
+  border-radius: 0.35em;
+  background: color-mix(in srgb, var(--jwp-color-link) 12%, transparent);
+  color: #fff7ad;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.88em;
+  white-space: break-spaces;
   word-break: normal;
-  overflow-wrap: normal;
+  overflow-wrap: anywhere;
   overflow: visible;
   margin: 0;
   vertical-align: baseline;
-  line-height: inherit;
 }
 
 /* テーブル */
@@ -97,39 +181,46 @@
   overflow-x: auto !important;
   display: block !important;
   white-space: nowrap !important;
+  border-collapse: collapse;
+}
+
+.article-content th,
+.article-content td {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--jwp-color-text) 16%, transparent);
+}
+
+.article-content blockquote {
+  padding: 0.05rem 0 0.05rem 1rem;
+  border-left: 4px solid color-mix(in srgb, var(--jwp-color-link) 55%, transparent);
+  color: color-mix(in srgb, var(--jwp-color-text) 78%, transparent);
 }
 
 /* モバイル専用のコンテンツスタイル */
 @media screen and (max-width: 600px) {
   .article-content {
-    font-size: 12px !important;
-    line-height: 1.4 !important;
+    font-size: 1rem;
+    line-height: 1.78;
   }
 
-  .article-content pre,
+  .article-content pre {
+    margin: 1.25em -0.25rem;
+    padding: 0.85rem;
+    border-radius: 10px;
+  }
+
   .article-content pre code {
-    font-size: 10px !important;
-    padding: 8px !important;
-    margin: 4px 0 !important;
+    font-size: 0.86rem;
   }
 
-  /* 非常に長い文字列も強制的に改行 */
-  .article-content * {
-    word-break: break-word !important;
-    overflow-wrap: break-word !important;
-    hyphens: auto !important;
+  .article-content h2 {
+    margin-top: 2em;
   }
 }
 
 @media screen and (max-width: 480px) {
   .article-content {
-    font-size: 10px !important;
-  }
-
-  .article-content pre,
-  .article-content pre code {
-    font-size: 9px !important;
-    padding: 6px !important;
+    font-size: 0.98rem;
   }
 }
 
@@ -140,17 +231,16 @@ body {
   padding: 0;
   /** font kerning */
   font-feature-settings: "palt";
-  letter-spacing: 0.1rem;
+  letter-spacing: normal;
   /** 行間  */
-  line-height: .8rem;
+  line-height: 1.6;
 }
 .article-content a {
   margin: 0;
   padding: 0;
   vertical-align: baseline;
   background: transparent;
-  word-break: break-all;
-  margin-top: 1em;
+  word-break: break-word;
   color: var(--jwp-color-link);
   transition: 0.5s;
   /* font-size: 14px;
@@ -167,91 +257,14 @@ body {
   color: var(--jwp-color-link-active);
 }
 
-.article-content h1,
-.article-content h2,
-.article-content h3,
-.article-content h4,
-.article-content h5 {
-  padding-top: 2rem;
-}
-
-@media screen and (max-width: 600px) {
-  .article-content h1,
-  .article-content h2,
-  .article-content h3,
-  .article-content h4,
-  .article-content h5 {
-    padding-top: 1rem;
-  }
-}
-
-.article-content h1 {
-  border-bottom: double 6px var(--jwp-color-text);
-}
-
 .article-content h2 > a {
-  border-bottom: double 6px var(--jwp-color-text);
+  color: inherit;
 }
 
 .article-content h2 > a,
 .article-content h3 > a,
 .article-content h4 > a {
   color: var(--jwp-color-text);
-}
-
-@media screen and (max-width: 800px) {
-  .article-content h1 {
-    font-size: 30px;
-    padding-top: 3%;
-  }
-}
-@media screen and (max-width: 600px) {
-  .article-content h1 {
-    font-size: 24px;
-    padding-top: 3%;
-  }
-
-  .article-content h2 {
-    font-size: 16px;
-    padding-top: 3%;
-  }
-
-  .article-content h3 {
-    font-size: 14px;
-    padding-top: 3%;
-  }
-
-  .article-content p,
-  .article-content div,
-  .article-content span,
-  .article-content ul,
-  .article-content li {
-    font-size: 12px;
-  }
-}
-@media screen and (max-width: 480px) {
-  .article-content h1 {
-    font-size: 20px;
-    padding-top: 3%;
-  }
-
-  .article-content h2 {
-    font-size: 16px;
-    padding-top: 3%;
-  }
-
-  .article-content h3 {
-    font-size: 12px;
-    padding-top: 3%;
-  }
-
-  .article-content p,
-  .article-content div,
-  .article-content span,
-  .article-content ul,
-  .article-content li {
-    font-size: 10px;
-  }
 }
 
 html,
