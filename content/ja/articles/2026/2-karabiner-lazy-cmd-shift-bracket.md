@@ -59,11 +59,11 @@ right_shift up
 
 ### macOSがショートカットを奪っていないか
 
-macOSのシステムショートカットや常駐アプリを止めても変化はありませんでした。さらに、macOSのCarbon APIにある`RegisterEventHotKey`で`⌘⇧[`を一時登録するとイベントを受信できました。
+macOSのシステムショートカットや常駐アプリを止めても変化はありませんでした。
 
-ここでいうCarbonは、AppleがmacOS向けに提供してきたC API群のことです。`RegisterEventHotKey`はCarbon Event ManagerのAPIで、キーコードと修飾キーをグローバルホットキーとして登録し、押されたときに`kEventHotKeyPressed`イベントを受け取れます。今回はアプリを実装するためではなく、macOSのイベント配送を切り分ける小さな診断プログラムとして使いました。
+ここで使ったCarbonは、macOSに古くからあるC APIです。今回は`RegisterEventHotKey`を使い、`⌘⇧[`をmacOSが認識しているかだけを確認しました。
 
-実際の確認コードは、概ね次のようなものです。US配列の`[`に対応するキーコード33と、Command、Shiftを登録してイベントを1回待ちます。
+確認に使ったコードは次のようなものです。US配列の`[`に対応するキーコード33と、Command、Shiftを登録してイベントを1回待ちます。
 
 ```c
 #include <Carbon/Carbon.h>
@@ -85,9 +85,9 @@ EventRef event = NULL;
 OSStatus received = ReceiveNextEvent(1, &type, 30.0, true, &event);
 ```
 
-`RegisterEventHotKey`が`noErr`を返し、`ReceiveNextEvent`でもイベントを受信できたため、macOSは`⌘⇧[`を認識してテストプロセスへ配送できると確認できました。ただし、この結果だけで他のアプリが同じ組み合わせを使っていないと断定したり、Karabinerによる変換後のイベントまで正しいと証明したりはできません。物理キーとmacOSの配送経路は動いている、という範囲の確認です。
+登録とイベント受信の両方に成功したため、少なくともmacOSは`⌘⇧[`を認識し、テストプログラムまで届けられています。ただし、これだけで他のアプリとの競合がないとまでは断定できません。
 
-Carbonは現在のmacOSアプリ開発で中心となるAPIではありません。Appleも新しいアプリでは[Carbon APIからAppKitやFoundationなどへ移行する](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon)よう案内しています。今回は数十行の使い捨て診断プログラムで特定のホットキーを確認できるため、このAPIを利用しました。
+Carbonは新しいmacOSアプリを作るために選んだものではありません。今回は、特定のショートカットがmacOSから届くかを小さなCプログラムで確認できるため、切り分けに利用しました。Appleも新しいアプリでは[Carbon APIからAppKitやFoundationなどへ移行する](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon)よう案内しています。
 
 ### Karabinerのルールを外すとどうなるか
 

@@ -59,11 +59,11 @@ The `open_bracket` event was present, so this was not a broken key or a US/JIS l
 
 ### Whether macOS owned the shortcut
 
-Disabling relevant macOS shortcuts and quitting background utilities did not change the behavior. I also registered `Cmd+Shift+[` temporarily with `RegisterEventHotKey` from the macOS Carbon APIs, and the probe received it.
+Disabling relevant macOS shortcuts and quitting background utilities did not change the behavior.
 
-Carbon is a family of C APIs that Apple provided for macOS application development. `RegisterEventHotKey` belongs to the Carbon Event Manager. It registers a key code and modifiers as a global hotkey and delivers a `kEventHotKeyPressed` event when the combination is pressed. I used it as a small diagnostic program for the macOS event path, not as the implementation of the final workaround.
+Carbon is an older C API for macOS. I used its `RegisterEventHotKey` function to check whether macOS recognized `Cmd+Shift+[`.
 
-The probe was approximately the following. It registers key code 33, which is `[` on a US layout, together with Command and Shift, then waits for one event.
+The test program looked like this. It registers key code 33, which is `[` on a US layout, together with Command and Shift, then waits for one event.
 
 ```c
 #include <Carbon/Carbon.h>
@@ -85,9 +85,9 @@ EventRef event = NULL;
 OSStatus received = ReceiveNextEvent(1, &type, 30.0, true, &event);
 ```
 
-`RegisterEventHotKey` returned `noErr`, and `ReceiveNextEvent` received the event. This proved that macOS could recognize `Cmd+Shift+[` and deliver it to the test process. It did not prove that no other application used the same combination, or that the event emerging from Karabiner's transformations was correct. The probe only verified the physical-key-to-macOS delivery boundary.
+Both registration and event delivery succeeded. That showed that macOS recognized `Cmd+Shift+[` and could deliver it to the test program. It did not prove that another application was not using the same shortcut.
 
-Carbon is no longer the main API family for new macOS application development. Apple recommends [migrating Carbon APIs to AppKit, Foundation, and other modern APIs](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon). I used it here because a disposable program of a few dozen lines could test one specific global hotkey directly.
+I did not choose Carbon as an implementation technology for a new macOS application. I used it here because a small C program could tell me whether macOS delivered this particular shortcut. Apple recommends [migrating Carbon APIs to AppKit, Foundation, and other modern APIs](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon) for current application development.
 
 ### What happened without the Karabiner rule
 
