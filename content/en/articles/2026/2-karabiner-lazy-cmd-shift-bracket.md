@@ -87,7 +87,7 @@ OSStatus received = ReceiveNextEvent(1, &type, 30.0, true, &event);
 
 Both registration and event delivery succeeded. That showed that macOS recognized `Cmd+Shift+[` and could deliver it to the test program. It did not prove that another application was not using the same shortcut.
 
-I did not choose Carbon as an implementation technology for a new macOS application. I used it here because a small C program could tell me whether macOS delivered this particular shortcut. Apple recommends [migrating Carbon APIs to AppKit, Foundation, and other modern APIs](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon) for current application development.
+Apple recommends [migrating Carbon APIs to AppKit, Foundation, and other modern APIs](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon) for current application development.
 
 ### What happened without the Karabiner rule
 

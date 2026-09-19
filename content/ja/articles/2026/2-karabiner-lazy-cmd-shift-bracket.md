@@ -87,7 +87,7 @@ OSStatus received = ReceiveNextEvent(1, &type, 30.0, true, &event);
 
 登録とイベント受信の両方に成功したため、少なくともmacOSは`⌘⇧[`を認識し、テストプログラムまで届けられています。ただし、これだけで他のアプリとの競合がないとまでは断定できません。
 
-Carbonは新しいmacOSアプリを作るために選んだものではありません。今回は、特定のショートカットがmacOSから届くかを小さなCプログラムで確認できるため、切り分けに利用しました。Appleも新しいアプリでは[Carbon APIからAppKitやFoundationなどへ移行する](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon)よう案内しています。
+なお、Appleは現在のアプリ開発では、[Carbon APIからAppKitやFoundationなどへ移行する](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon)よう案内しています。
 
 ### Karabinerのルールを外すとどうなるか
 
