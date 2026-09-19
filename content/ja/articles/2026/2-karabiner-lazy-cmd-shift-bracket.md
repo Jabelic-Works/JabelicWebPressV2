@@ -1,7 +1,7 @@
 ---
 sitemap:
   loc: /ja/articles/2026/2-karabiner-lazy-cmd-shift-bracket
-  lastmod: 2026-09-18
+  lastmod: 2026-09-19
   changefreq: monthly
   priority: 0.8
 publishedAt: 2026-09-18
@@ -59,9 +59,35 @@ right_shift up
 
 ### macOSがショートカットを奪っていないか
 
-macOSのシステムショートカットや常駐アプリを止めても変化はありませんでした。さらにCarbonの`RegisterEventHotKey`で`⌘⇧[`を一時登録するとイベントを受信できました。
+macOSのシステムショートカットや常駐アプリを止めても変化はありませんでした。さらに、macOSのCarbon APIにある`RegisterEventHotKey`で`⌘⇧[`を一時登録するとイベントを受信できました。
 
-ここから、macOSまではキーの組み合わせを正しく配送しており、グローバルショートカットの競合でもないと判断できました。
+ここでいうCarbonは、AppleがmacOS向けに提供してきたC API群のことです。`RegisterEventHotKey`はCarbon Event ManagerのAPIで、キーコードと修飾キーをグローバルホットキーとして登録し、押されたときに`kEventHotKeyPressed`イベントを受け取れます。今回はアプリを実装するためではなく、macOSのイベント配送を切り分ける小さな診断プログラムとして使いました。
+
+実際の確認コードは、概ね次のようなものです。US配列の`[`に対応するキーコード33と、Command、Shiftを登録してイベントを1回待ちます。
+
+```c
+#include <Carbon/Carbon.h>
+
+EventHotKeyRef hotKey = NULL;
+EventHotKeyID id = { 'TEST', 1 };
+EventTypeSpec type = { kEventClassKeyboard, kEventHotKeyPressed };
+
+OSStatus status = RegisterEventHotKey(
+    33,
+    cmdKey | shiftKey,
+    id,
+    GetApplicationEventTarget(),
+    0,
+    &hotKey
+);
+
+EventRef event = NULL;
+OSStatus received = ReceiveNextEvent(1, &type, 30.0, true, &event);
+```
+
+`RegisterEventHotKey`が`noErr`を返し、`ReceiveNextEvent`でもイベントを受信できたため、macOSは`⌘⇧[`を認識してテストプロセスへ配送できると確認できました。ただし、この結果だけで他のアプリが同じ組み合わせを使っていないと断定したり、Karabinerによる変換後のイベントまで正しいと証明したりはできません。物理キーとmacOSの配送経路は動いている、という範囲の確認です。
+
+Carbonは現在のmacOSアプリ開発で中心となるAPIではありません。Appleも新しいアプリでは[Carbon APIからAppKitやFoundationなどへ移行する](https://developer.apple.com/documentation/Apple-Silicon/porting-your-macos-apps-to-apple-silicon)よう案内しています。今回は数十行の使い捨て診断プログラムで特定のホットキーを確認できるため、このAPIを利用しました。
 
 ### Karabinerのルールを外すとどうなるか
 
@@ -219,7 +245,7 @@ VS Codeの`keybindings.json`にも同じ中継キーを登録します。
 1. 文字単体を入力できるか確認する
 2. Karabiner-EventViewerで物理キーの入力を確認する
 3. 複数アプリで再現するか確認する
-4. macOSのグローバルショートカット競合を確認する
+4. macOSがそのキーをグローバルホットキーとして配送できるか確認する
 5. KarabinerのComplex Modificationsを一つずつ外す
 6. `to_if_alone`を持つ修飾キールールに`lazy`があるか確認する
 7. Karabinerの出力キーとアプリ側の受信キーを分けて検証する
