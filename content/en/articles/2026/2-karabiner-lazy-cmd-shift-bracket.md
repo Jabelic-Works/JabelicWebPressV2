@@ -61,7 +61,7 @@ The `open_bracket` event was present, so this was not a broken key or a US/JIS l
 
 Disabling relevant macOS shortcuts and quitting background utilities did not change the behavior.
 
-I chose the troubleshooting steps through the EventViewer and background-application checks. I then asked the AI to continue the investigation. It wrote a small test program using `RegisterEventHotKey` from the macOS Carbon APIs to check whether macOS delivered the `Cmd+Shift+[` event. Carbon is an older C API for macOS.
+These checks did not reveal the cause, so I asked the AI to continue the investigation. It wrote a small test program using `RegisterEventHotKey` from the macOS Carbon APIs to check whether macOS delivered the `Cmd+Shift+[` event. Carbon is an older C API for macOS.
 
 The program looked like this. It registers key code 33, which is `[` on a US layout, together with Command and Shift, then waits for one event.
 

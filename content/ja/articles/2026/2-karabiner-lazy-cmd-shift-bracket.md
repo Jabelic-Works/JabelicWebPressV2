@@ -61,7 +61,7 @@ right_shift up
 
 macOSのシステムショートカットや常駐アプリを止めても変化はありませんでした。
 
-EventViewerや常駐アプリを使った切り分けまでは、自分で確認項目を決めて進めました。その先はAIに調査を続けてもらい、macOSのCarbon APIにある`RegisterEventHotKey`を使った検証プログラムを作ってもらいました。このプログラムで、`⌘⇧[`のイベントがmacOSから届くかを確認しています。Carbonは、macOSに古くからあるC APIです。
+ここまでの切り分けはこちらで行いましたが、原因は分かりませんでした。そこでAIに調査を続けてもらったところ、macOSのCarbon APIにある`RegisterEventHotKey`を使った検証プログラムを作ってくれました。このプログラムで、`⌘⇧[`のイベントがmacOSから届くかを確認しています。Carbonは、macOSに古くからあるC APIです。
 
 コードは次のようなものです。US配列の`[`に対応するキーコード33と、Command、Shiftを登録してイベントを1回待ちます。
 
